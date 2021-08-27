@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <!-- JQUERY -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- BOOTSTRAP -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <title>Screaming</title>
+</head>
+
+<body>
+  <div class='jumbotron text-center'>
+    <h1>Screaming</h1>
+    <h3>(An Amazing Twitter Clone)</h3>
+  </div>
+
+  <!-- main navigation -->
+  <br>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <section class='container-fluid'>
+      <p class="navbar-text"><a href='/home/' class="navbar-link">Home</a></p>
+      {% if not request.user.is_authenticated %}
+      <p class="navbar-text"><a href="/login/" class="navbar-link">Login</a></p>
+      {% endif %}
+      <p class="navbar-text"><a href="/create_user/" class="navbar-link">Create User</a></p>
+    </section>
+  </nav>
+
+  <!-- User Panel -->
+
+  {% if request.user.is_authenticated %}
+  <div class="container">
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title text-center">
+            {% if notif.count %}
+            <a data-toggle="collapse" href="#collapse1">{{ request.user.username }} ({{ notif.count }})</a>
+            {% else %}
+            <a data-toggle="collapse" href="#collapse1">{{ request.user.username }}</a>
+            {% endif %}
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul>
+              <li><a href='/profile/{{ request.user.id }}'>Profile</a></li>
+              <li><a href='/notifications/{{ request.user.id }}'>Notifications ({{ notif.count }})</a></li>
+            </ul>
+          </div>
+          <div class="panel-footer"><a href='/logout/' class="navbar-link">Logout</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- prints error messages -->
+  {% if messages %}
+  {% for message in messages %}
+  <div class="p-4 mb-4 bg-white w-100 text-center">
+    <div class="alert alert-warning" style="margin-right:80%; text-align:center">
+      <div class="message">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <section id='outer'>
+    <!-- block content will contain every other page -->
+    {% block content %}
+    {% endblock content %}
+  </section>
+</body>
+
+</html>

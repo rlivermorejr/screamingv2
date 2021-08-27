@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block content %}
+{% autoescape off %}
+<section class='container'>
+  <div class='shadow p-4 mb-4 bg-white w-100'>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Post</th>
+          <th> </th>
+          <th> </th>
+          <th> </th>
+        </tr>
+      </thead>
+      {% csrf_token %}
+      {% for foo in list %}
+      <tbody>
+        <tr>
+          <td class="text-left text-uppercase">{{ foo.content }}!!!</td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td class='text-right'><a href='/post/{{ foo.id }}'><button type='submit'>View Post</button></a>
+          </td>
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</section>
+{% endautoescape %}
+{% endblock content %}

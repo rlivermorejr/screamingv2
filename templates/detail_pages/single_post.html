@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+{% block content %}
+
+<!-- shows a single post  -->
+<div class='container mt-4'>
+  {% autoescape off %}
+  <div class='shadow p-4 mb-4 bg-white w-50'>
+    <p class='posted_by'><a href='/profile/{{ post.posted_by.id }}'>{{ post.posted_by }}</a> screams:</p>
+    <p class="text-uppercase">{{ post.content }}!!!</p>
+    <p class='time'>{{ post.creation_time }}</p>
+    <br>
+    {% if request.user.is_authenticated %}
+    <div class='buttons'>
+      <a href='/like/{{ post.id }}'><button class="btn-xs">Like: {{ post.likes.count }}</button></a> |
+      <a href="/dislike/{{ post.id }}"><button class="btn-xs">Dislike: {{ post.dislikes.count }}</button></a>
+    </div>
+    {% endif %}
+  </div>
+  <details>
+    <summary>Comments {{ comment.all.count }}</summary>
+    <form action="/comment/{{ post.id }}/" enctype="multipart/form-data" method="POST" class="form-horizontal">
+      {% csrf_token %}
+      {{ comment_form }}
+      <input class="btn btn-primary" type='submit' value='Submit'>
+    </form>
+    {% if comment %}
+    {% for foo in comment %}
+    <div class="comments" style="margin-left: 50px; border: 1px solid black; width: 30vw">
+      <a href="/profile/{{ foo.comment_by.id }}"><img src="{{ foo.comment_by.profile_image.url }}" width="50"
+          height="50" class="rounded-circle"></a>
+      <p><a href="/profile/{{ foo.comment_by.id }}">{{ foo.comment_by }}</a> Replied:</p>
+      <p>{{ foo.content }}</p>
+      <p>{{ foo.created_at }}</p>
+      <p> Likes: {{ foo.likes.count }} </p>
+
+      {% if foo.liked %}
+      <a href="/like/{{ comment.id }}/comment"><button class="btn-xs">Dislike</button></a>
+      {% else %}
+      <a href="/like/{{ comment.id }}/comment"><button class="btn-xs">Like</button></a>
+      {% endif %}
+      {% if request.user == foo.comment_by %}
+      <a href="/delete_comments/{{ comment.id }}/"><button>delete</button></a>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+  </details>
+  {% endif %}
+  {% endautoescape %}
+</div>
+{% endblock content %}

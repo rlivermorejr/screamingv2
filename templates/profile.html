@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container mt-2">
+  <div class='shadow p-4 mb-4 bg-white w-100'>
+    <!-- message when no notifications -->
+    {% if notif.count == 0 %}
+    <b>You have no new notifications</b>
+
+    {% else %}
+    <h2>Notifications</h2>
+    <hr>
+    <div class="text-right">
+      <a href='/mark_read/0/?data=read'><button type='submit' value='Read'>Read-all</button></a>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Post</th>
+          <th>When</th>
+          <th> </th>
+          <th> </th>
+        </tr>
+      </thead>
+      {% csrf_token %}
+      {% for foo in notif %}
+      {% if foo.read == False %}
+      {% autoescape off %}
+      <tbody>
+        <tr href='/post/{{ foo.id }}'>
+          <td>{{ foo.message }}</td>
+          <td>{{ foo.rec_date }}</td>
+          {% if foo.follower == False %}
+          <td><a href='/post/{{ foo.post_id }}'>See</a></td>
+          {% else %}
+          <td> </td>
+          {% endif %}
+          <td class='text-right'><a href='/mark_read/{{ foo.id }}'><button type='submit' value='Read'>Read</button></a>
+          </td>
+        </tr>
+      </tbody>
+      {% endautoescape %}
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
