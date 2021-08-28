@@ -5,8 +5,8 @@ from django.views import View
 
 from django.http import HttpResponseRedirect
 from auth_app.models import Account
-from notify_app.views import NotifyFollow
-from notify_app.models import Notification
+from notification_app.views import NotifyFollow
+from notification_app.models import Notification
 from post_app.models import ScreamModel
 from user_app.forms import ChangeProfileImage, EditProfile, SearchProfile
 
@@ -91,9 +91,9 @@ def following(request, user_id: int):
         notif = Notification.objects.filter(
             user_to_notify=cur_user, read=False)
     except Account.DoesNotExist:
-        return render(request, 'listFollow.html', {'list': following})
-    return render(request, 'listFollow.html', {'list': following,
-                                               'notif': notif})
+        return render(request, 'detail_pages/list_follow.html', {'list': following})
+    return render(request, 'detail_pages/list_follow.html', {'list': following,
+                                                             'notif': notif})
 
 
 def followers(request, user_id: int):
@@ -108,21 +108,21 @@ def followers(request, user_id: int):
         notif = Notification.objects.filter(
             user_to_notify=cur_user, read=False)
     except Account.DoesNotExist:
-        return render(request, 'listFollow.html', {'list': followers})
-    return render(request, 'listFollow.html', {'list': followers,
-                                               'notif': notif})
+        return render(request, 'detail_pages/list_follow.html', {'list': followers})
+    return render(request, 'detail_pages/list_follow.html', {'list': followers,
+                                                             'notif': notif})
 
 
 def user_likes(request, user_id: int):
     account = Account.objects.get(id=user_id)
     likes = ScreamModel.objects.filter(likes=account)
-    return render(request, 'listLikes.html', {'list': likes})
+    return render(request, 'detail_pages/list_likes.html', {'list': likes})
 
 
 def user_dislikes(request, user_id: int):
     account = Account.objects.get(id=user_id)
     dislikes = ScreamModel.objects.filter(dislikes=account)
-    return render(request, 'listLikes.html', {'list': dislikes})
+    return render(request, 'detail_pages/list_likes.html', {'list': dislikes})
 
 
 class EditUserProfile(View):
@@ -132,7 +132,7 @@ class EditUserProfile(View):
             'bio': cur_user.bio,
             'date_of_birth': cur_user.date_of_birth,
         })
-        return render(request, 'forms/genform.html', {'form': form})
+        return render(request, 'forms/gen_form.html', {'form': form})
 
     def post(self, request, user_id):
         cur_user = Account.objects.get(id=user_id)
@@ -156,7 +156,7 @@ class EditUserProfile(View):
 #         form = ChangeProfileImage(initial={
 #             'profile_image': cur_user.profile_image
 #         })
-#         return render(request, 'forms/genform.html', {'form': form})
+#         return render(request, 'forms/gen_form.html', {'form': form})
 
 #     def post(self, request, user_id):
 #         cur_user = Account.objects.get(id=user_id)

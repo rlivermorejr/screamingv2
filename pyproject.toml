@@ -7,9 +7,16 @@ authors = ["rlivermorejr <rlivermorejr@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 Django = "^3.2.6"
+django-environ = "^0.4.5"
+pymongo = {extras = ["srv"], version = "^3.12.0"}
+Pillow = "^8.3.1"
+djongo = "^1.3.6"
+sqlparse = "0.2.4"
+django-resized = "^0.3.11"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.7"
+flake8 = "^3.9.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from auth_app.models import Account
 from post_app.models import ScreamModel, CommentModel
-from notify_app.models import Notification
+from notification_app.models import Notification
 
 
 @login_required

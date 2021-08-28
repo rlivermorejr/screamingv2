@@ -24,7 +24,7 @@ from post_app.views import (post_tweet, like_view, dislike_view,
 from user_app.views import (EditUserProfile, get_user_profile, follow_user,
                             unfollow_user, followers, following,
                             user_likes, user_dislikes)
-from notify_app.views import show_notify, mark_read
+from notification_app.views import show_notify, mark_read
 
 urlpatterns = [
     path('admin/', admin.site.urls),

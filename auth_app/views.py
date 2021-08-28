@@ -7,7 +7,7 @@ from django.contrib.auth import login, authenticate, logout
 from auth_app.forms import CreateUserForm, LoginForm
 from auth_app.models import Account
 from django.contrib import messages
-from notify_app.models import Notification
+from notification_app.models import Notification
 
 
 def index_page(request):
@@ -34,7 +34,7 @@ class CreateUser(View):
 
     def get(self, request):
         form = CreateUserForm()
-        return render(request, 'forms/create_form.html', {'form': form})
+        return render(request, 'forms/create.html', {'form': form})
 
     def post(self, request):
         form = CreateUserForm(request.POST)
@@ -70,7 +70,7 @@ def login_user(request):
                 messages.error(request, 'username or password not correct')
                 return redirect('login_page')
     form = LoginForm()
-    return render(request, 'forms/genform.html', {'form': form})
+    return render(request, 'forms/gen_form.html', {'form': form})
 
 
 def logout_user(request):

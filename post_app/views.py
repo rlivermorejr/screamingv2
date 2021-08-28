@@ -5,9 +5,9 @@ from django.views import View
 from auth_app.models import Account
 from post_app.models import ScreamModel, CommentModel
 from post_app.forms import ScreamForm, CommentForm
-from notify_app.views import (
+from notification_app.views import (
     NotifyLike, NotifyDislike, NotifyMention, NotifyComment)
-from notify_app.models import Notification
+from notification_app.models import Notification
 
 
 def view_post(request, post_id: int):
@@ -18,13 +18,13 @@ def view_post(request, post_id: int):
     try:
         post = ScreamModel.objects.get(id=post_id)
         comments = CommentModel.objects.filter(orig_post=post)
-        return render(request, 'singlePost.html', {'post': post,
-                                                   'comment': comments,
-                                                   'comment_form': comment_form})
+        return render(request, 'detail_pages/single_post.html', {'post': post,
+                                                                 'comment': comments,
+                                                                 'comment_form': comment_form})
     except Exception as e:
         print(e)
-        return render(request, 'singlePost.html', {'post': post,
-                                                   'comment_form': comment_form})
+        return render(request, 'detail_pages/single_post.html', {'post': post,
+                                                                 'comment_form': comment_form})
 
 
 def like_view(request, post_id):
