@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import datetime
 from auth_app.models import Account
 
 
@@ -17,6 +18,18 @@ class ScreamModel(models.Model):
     comments = models.ManyToManyField('CommentModel',
                                       blank=True,
                                       related_name='post_comments')
+
+    # def elapsed(self):
+    #     seconds = self.creation_time
+    #     min, sec = divmod(seconds, 60)
+    #     hour, min = divmod(min, 60)
+    #     return seconds.second
+    #     if hour == 1:
+    #         return "%d hour ago", (hour)
+    #     if hour > 1:
+    #         return "%d hours ago", (hour)
+    #     if hour == 0:
+    #         return "%d minutes ago", (min)
 
     def __str__(self):
         return self.content

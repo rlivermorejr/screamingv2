@@ -15,16 +15,17 @@ def view_post(request, post_id: int):
     Displays a single post
     """
     comment_form = CommentForm()
+    temp = 'detail_pages/single_post.html'
     try:
         post = ScreamModel.objects.get(id=post_id)
         comments = CommentModel.objects.filter(orig_post=post)
-        return render(request, 'detail_pages/single_post.html', {'post': post,
-                                                                 'comment': comments,
-                                                                 'comment_form': comment_form})
+        return render(request, temp, {'post': post,
+                                      'comment': comments,
+                                      'comment_form': comment_form})
     except Exception as e:
         print(e)
-        return render(request, 'detail_pages/single_post.html', {'post': post,
-                                                                 'comment_form': comment_form})
+        return render(request, temp, {'post': post,
+                                      'comment_form': comment_form})
 
 
 def like_view(request, post_id):
@@ -42,6 +43,9 @@ def like_view(request, post_id):
         post.save()
     else:
         post.likes.add(cur_user)
+        if cur_user in post.dislikes.all():
+            post.dislikes.remove(cur_user)
+            post.save()
         post.save()
         NotifyLike(request, post_id)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
@@ -62,6 +66,9 @@ def dislike_view(request, post_id):
         post.save()
     else:
         post.dislikes.add(cur_user)
+        if cur_user in post.likes.all():
+            post.likes.remove(cur_user)
+            post.save()
         post.save()
         NotifyDislike(request, post_id)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
@@ -89,6 +96,7 @@ def post_tweet(request):
     post_tweet = ScreamForm()
     comment_form = CommentForm()
     tweets = ScreamModel.objects.all()[::-1]
+    sm = ScreamModel()
     try:
         cur_user = Account.objects.get(id=request.user.id)
         notif = Notification.objects.filter(
@@ -99,7 +107,8 @@ def post_tweet(request):
     return render(request, 'main.html', {'post_tweet': post_tweet,
                                          'tweets': tweets,
                                          'notif': notif,
-                                         'comment_form': comment_form})
+                                         'comment_form': comment_form,
+                                         'sm': sm})
 
 
 def mention(request, data, obj):

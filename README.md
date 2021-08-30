@@ -32,3 +32,6 @@
 ## Features not yet implemented
  - Search for other users
 
+## Currently working on:
+- Styling for comments, profile, index
+- Upload different profile image

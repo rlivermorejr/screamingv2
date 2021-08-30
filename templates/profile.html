@@ -1,48 +1,45 @@
 {% extends "index.html" %}
+{% load static %}
 {% block content %}
-<div class="container mt-2">
+<section class='container'>
   <div class='shadow p-4 mb-4 bg-white w-100'>
-    <!-- message when no notifications -->
-    {% if notif.count == 0 %}
-    <b>You have no new notifications</b>
-
-    {% else %}
-    <h2>Notifications</h2>
+    <img src="{{ account.profile_image.url }}" height="100" width="100" class="rounded-circle"
+      alt="{{ request.user.username }}">
+    <h3>Name</h3>
+    {{ account.username }}
+    </br>
+    <h3>BIO:</h3>
+    {{ account.bio }}
+    </br>
+    <h3>DOB:</h3>
+    {{ account.date_of_birth }}
+    <br>
+    <h3>Following:</h3>
+    <a href="/profile/{{ account.id }}/following/">{{ account.following.count }}</a>
+    <br>
+    <h3>Followers:</h3>
+    <a href="/profile/{{ account.id }}/followers/">{{ account.followers.count }}</a>
+    <br>
+    <a href="/profile/{{ account.id }}/likes/">
+      <h3>Likes</h3>
+    </a>
+    <br>
+    <a href="/profile/{{account.id}}/dislikes/">
+      <h3>Dislikes</h3>
+    </a>
+    <br>
+    {% if account.username == request.user.username %}
+    <a href='/profile/{{ account.id }}/edit/'>Edit Profile</a>
+    {% endif %}
+    </br>
     <hr>
-    <div class="text-right">
-      <a href='/mark_read/0/?data=read'><button type='submit' value='Read'>Read-all</button></a>
-    </div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Post</th>
-          <th>When</th>
-          <th> </th>
-          <th> </th>
-        </tr>
-      </thead>
-      {% csrf_token %}
-      {% for foo in notif %}
-      {% if foo.read == False %}
-      {% autoescape off %}
-      <tbody>
-        <tr href='/post/{{ foo.id }}'>
-          <td>{{ foo.message }}</td>
-          <td>{{ foo.rec_date }}</td>
-          {% if foo.follower == False %}
-          <td><a href='/post/{{ foo.post_id }}'>See</a></td>
-          {% else %}
-          <td> </td>
-          {% endif %}
-          <td class='text-right'><a href='/mark_read/{{ foo.id }}'><button type='submit' value='Read'>Read</button></a>
-          </td>
-        </tr>
-      </tbody>
-      {% endautoescape %}
-      {% endif %}
-      {% endfor %}
-    </table>
+    {% if request.user.is_authenticated %}
+    <a href='/profile/{{ account.id }}/follow/'><button class="btn-xs">Follow</button></a>
+    </br>
+    <a href='/profile/{{ account.id }}/unfollow/'><button class="btn-xs">Unfollow</button></a>
+    {% endif %}
   </div>
-  {% endif %}
-</div>
+</section>
+
+</br>
 {% endblock content %}

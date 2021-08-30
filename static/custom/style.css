@@ -1,5 +1,29 @@
 body {
-    background-color: #eee
+    background-color: #eee;
+    font-size: 14px;
+}
+
+.header {
+    background-color: rgb(241, 241, 255)
+}
+
+.font-title {
+    font-size: 18px;
+}
+
+.font-regular {
+    font-size: 13px;
+}
+
+.font-small {
+    font-size: 11px;
+}
+
+.post {
+    font-size: 15px;
+    text-transform: uppercase;
+    text-decoration: double;
+    text-decoration-color: aqua;
 }
 
 .bdge {
@@ -15,7 +39,8 @@ body {
 .comments {
     text-decoration: underline;
     text-underline-position: under;
-    cursor: pointer
+    cursor: pointer;
+    font-size:12px;
 }
 
 .dot {

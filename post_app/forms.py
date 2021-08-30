@@ -7,4 +7,4 @@ class ScreamForm(forms.Form):
 
 
 class CommentForm(forms.Form):
-    content = forms.CharField(max_length=140)
+    content = forms.CharField(max_length=140, label="")
