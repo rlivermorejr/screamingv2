@@ -16,81 +16,7 @@
 </div>
 </br>
 
-<!-- list of all posts
-{% for foo in tweets %}
-{% autoescape off %}
-<div class="container mt-5 mb-5">
-  <div class="d-flex justify-content-center row">
-    <div class="d-flex flex-column col-md-8">
-      <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
-        <div class="profile-image"><img class="rounded-circle" src={{ foo.posted_by.profile_image }} width="70"></div>
-        <a href='/profile/{{ foo.posted_by.id }}'>
-          {{ foo.posted_by }}
-        </a>
-        screams:
-        </p>
-        <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"><i
-            class="fa fa-sort-up fa-2x hit-voting"></i><span>{{ foo.likes.count }}</span><i
-            class="fa fa-sort-down fa-2x hit-voting"></i></div>
-        <div class="d-flex flex-column ml-3">
-          <div class="d-flex flex-row post-title text-uppercase">
-            {{ foo.content }}!!!
-          </div>
-          <span class="mr-2 comments">{{ foo.comments.all.count }} comments&nbsp;</span><span
-            class="mr-2 dot"></span><span>{{ foo.creation_time }}</span>
-        </div>
-      </div>
-    </div>
-
-    <br>
-    {% if request.user.is_authenticated %}
-    <div class='buttons'>
-      <a href='/like/{{ foo.id }}'>
-        <button class="btn-xs">Like: {{ foo.likes.count }}</button>
-      </a> |
-      <a href="/dislike/{{ foo.id }}">
-        <button class="btn-xs">Dislike: {{ foo.dislikes.count }}</button>
-      </a>
-    </div>
-    <hr>
-    {% endif %}
-    <details>
-      <summary>Comments {{ foo.comments.all.count }}</summary>
-      <form action="/comment/{{ foo.id }}/" enctype="multipart/form-data" method="POST" class="form-horizontal">
-        {% csrf_token %}
-        {{ comment_form }}
-        <input class="btn btn-primary" type='submit' value='Submit'>
-      </form>
-      {% for comments in foo.comments.all %}
-      <div class="shadow p-4 mb-4 bg-white w-100">
-        <a href="/profile/{{ comments.comment_by.id }}"><img src="{{ comments.comment_by.profile_image.url }}"
-            width="50" height="50" class="rounded-circle"></a>
-        <p><a href="/profile/{{ comments.comment_by.id }}">{{ comments.comment_by }}</a> Replied:</p>
-        <p>{{ comments.content }}</p>
-        <p>{{ comments.created_at }}</p>
-
-        <a href="/like/{{ comments.id }}/comment">
-          <button class="btn-xs">
-            Upvote | {{ comments.likes.count}}
-          </button>
-        </a>
-
-        {% if request.user == comments.author %}
-        <a href="/delete_comments/{{ comments.id }}/"><button>delete</button></a>
-        {% endif %}
-      </div>
-
-      {% endfor %}
-    </details>
-  </div>
-  {% endautoescape %}
-  {% endfor %}
-</div>
-</div>
-</div>
-</div> -->
 {% for post in tweets %}
-{% autoescape off %}
 <div class="container mt-5 mb-5">
   <div class="d-flex justify-content-center row">
     <div class="d-flex flex-column col-md-8">
@@ -105,7 +31,7 @@
             {{ post.likes.count }}
           </span>
           {% else %}
-          <a class="fa fa-thumbs-o-up fa-2x hit-voting" href='/like/{{ post.id }}'></a>
+          <a class="fa fa-thumbs-o-up fa-2x hit-voting mr-1" href='/like/{{ post.id }}'></a>
           <span>
             {{ post.likes.count }}
           </span>
@@ -116,7 +42,7 @@
             {{ post.dislikes.count }}
           </span>
           {% else %}
-          <a class="fa fa-thumbs-o-down fa-2x hit-voting" href='/dislike/{{ post.id }}'></a>
+          <a class="fa fa-thumbs-o-down fa-2x hit-voting mr-1" href='/dislike/{{ post.id }}'></a>
           <span>
             {{ post.dislikes.count }}
           </span>
@@ -130,7 +56,7 @@
             </span>
           </div>
           <div class="d-flex flex-row mt-1 mb-3 font-regular">
-            <div class="post">{{ post.content }}!!!</div>
+            {{ post.content }}!!!
           </div>
           <div class="d-flex flex-row align-items-center align-content-center post-title font-small">
             <!-- <span class="bdge mr-2">
@@ -150,33 +76,30 @@
         <summary>Comments</summary> -->
       <div class="comment-bottom bg-white p-2 px-4">
         <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-          {% for comments in post.comments.all %}
           <a href="/profile/{{ comments.comment_by.id }}/"></a>
           <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ request.user.profile_image.url }}"
             width="33">
-          <form action="/comment/{{ foo.id }}/" enctype="multipart/form-data" method="POST" class="form-horizontal">
+          <form action="/comment/{{ post.id }}/" enctype="multipart/form-data" method="POST" class="form-horizontal">
             {% csrf_token %}
             {{ comment_form }}
             <input class="btn btn-primary mb-2" type='submit' value='Submit'>
           </form>
         </div>
-
+        {% for comments in post.comments.all %}
         <div class="commented-section">
           <div class="d-flex flex-row align-items-center">
-            <h5 class="mr-2">
-              <a href="/profile/{{ comments.comment_by.id }}/">
-                {{ comments.comment_by }}
-              </a>
-            </h5>
-            <span class="dot mb-2"></span>
-            <span class="ml-2 font-small">
-              {{ comments.created_at }}
-            </span>
+            <a class="font-regular mr-2 mb-2" href="/profile/{{ comments.comment_by.id }}/">
+              {{ comments.comment_by }}
+            </a>
           </div>
-          <div class="comment-text post">
-            <span>
+          <div class="comment-text">
+            <div>
               {{ comments.content }}!!!
-            </span>
+            </div>
+            <div class="font-small mt-2 mb-1">
+              {{ comments.created_at }} |
+              {{ hello }}
+            </div>
           </div>
           <div class="reply-section font-small">
             <div class="d-flex flex-row align-items-center voting-icons">
@@ -206,6 +129,6 @@
   </div>
 </div>
 </div>
-{% endautoescape %}
+
 {% endfor %}
 {% endblock content %}

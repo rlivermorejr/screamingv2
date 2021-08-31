@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-import datetime
+
 from auth_app.models import Account
 
 
@@ -14,7 +14,7 @@ class ScreamModel(models.Model):
     dislikes = models.ManyToManyField(Account,
                                       related_name='disliked_by',
                                       blank=True)
-    creation_time = models.DateTimeField(default=timezone.now, editable=False)
+    creation_time = models.DateTimeField(auto_now_add=True, editable=False)
     comments = models.ManyToManyField('CommentModel',
                                       blank=True,
                                       related_name='post_comments')

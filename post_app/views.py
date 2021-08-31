@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import (render, HttpResponseRedirect,
+                              reverse)
 from django.contrib import messages
 from django.views import View
 
@@ -88,7 +89,7 @@ def post_tweet(request):
         if form.is_valid():
             data = form.cleaned_data
             obj = ScreamModel.objects.create(
-                content=data['content'],
+                content=data['content'].upper(),
                 posted_by=request.user
             )
             mention(request, data, obj)
@@ -155,7 +156,7 @@ class CommentView(View):
             data = form.cleaned_data
             obj = CommentModel.objects.create(
                 orig_post=cur_post,
-                content=data['content'],
+                content=data['content'].upper(),
                 comment_by=request.user,
             )
             cur_post.comments.add(obj)

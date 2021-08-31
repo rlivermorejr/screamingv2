@@ -12,18 +12,15 @@ body {
 }
 
 .font-regular {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .font-small {
     font-size: 11px;
 }
 
-.post {
+.posted {
     font-size: 15px;
-    text-transform: uppercase;
-    text-decoration: double;
-    text-decoration-color: aqua;
 }
 
 .bdge {

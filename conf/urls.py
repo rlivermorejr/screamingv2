@@ -26,6 +26,7 @@ from user_app.views import (EditUserProfile, get_user_profile, follow_user,
                             user_likes, user_dislikes)
 from notification_app.views import show_notify, mark_read
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_page, name='index'),

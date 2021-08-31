@@ -28,7 +28,7 @@ def NotifyMention(request, user_id: int, post_id: int):
     post = ScreamModel.objects.get(id=post_id)
     split = post.content.split()[:5]
     to_user = f"You've recieved a mention from {post.posted_by} that says: \
-                        \'{' '.join(split)}...\'"
+                        \'{' '.join(split).upper()}...\'"
     Notification.objects.create(
         message=to_user,
         made_by=cur_user,
@@ -44,7 +44,7 @@ def NotifyComment(request, form_data, comment_model, post_id: int):
     post = ScreamModel.objects.get(id=post_id)
     split = comment_model.content.split()[:5]
     split_content = post.content.split()[:5]
-    to_user = f"You've recieved a comment on post {split_content}... from: \
+    to_user = f"You've recieved a comment on post \'{split_content[0]}\'... from: \
                         {cur_user} that says:\
                         \'{' '.join(split)}...\'"
     Notification.objects.create(
