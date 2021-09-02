@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from djongo.storage import GridFSStorage
+from django_countries.fields import CountryField
 
 
 from django.contrib.auth.models import AbstractUser
@@ -17,6 +18,8 @@ class Account(AbstractUser):
         blank=True)
     date_of_birth = models.DateField(
         auto_now=False, default='1990-01-01')
+    header = models.CharField(max_length=80, default="A 'lil sum sum")
+    country = CountryField()
     followers = models.ManyToManyField('self', symmetrical=False,
                                        related_name='auth_followers',
                                        blank=True)
