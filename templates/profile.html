@@ -49,9 +49,7 @@
         <img class="photo" src={{ account.profile_image.url }} alt="" height="80" width="100">
         <p class="fw-bold h4 mt-3 text-capitalize">{{ account.username }}</p>
         <p class="text-muted">{{ account.header }}</p>
-        <p class="text-muted mb-3">{{ account.location }}</p>
-        <p class="text-muted mb-3">{{ account.date_of_birth }}</p>
-
+        <p class="text-muted mb-3">{{ account.bio }}</p>
         {% if request.user.is_authenticated and request.user.username != account.username %}
         <div class="d-flex ">
           {% if request.user not in account.followers.all %}
@@ -109,8 +107,12 @@
         <p class="py-2 text-muted">(239) 816-9029</p>
       </div>
       <div class="d-flex align-items-center justify-content-between border-bottom">
-        <p class="py-2">Mobile</p>
-        <p class="py-2 text-muted">(320) 380-4539</p>
+        <p class="py-2">Country</p>
+        <p class="py-2 text-muted">{{ account.country }}</p>
+      </div>
+      <div class="d-flex align-items-center justify-content-between border-bottom">
+        <p class="py-2">Birthday</p>
+        <p class="py-2 text-muted">{{ account.date_of_birth }}</p>
       </div>
     </div>
     <div class="col-12 bg-white px-3 pb-2">
@@ -123,6 +125,74 @@
         <!-- Posts HERE -->
         <!-- Use different formatting than main -->
       </h6>
+      {% for post in posts %}
+      <div class="d-flex justify-content-center mb-3">
+        <div class='shadow p-4 mb-4 bg-white w-75'>
+          <div>
+            {{ post.content }}!!!
+          </div>
+          <p class='time'>
+            {{ post.creation_time }}
+          </p>
+          <br>
+          {% if request.user.is_authenticated %}
+          <div class="d-flex flex-row flex-grow-0 votings font-small">
+            {% if request.user in post.likes.all %}
+            <a class="fa fa-thumbs-up fa-2x hit-voting mr-1" href='/like/{{ post.id }}'></a>
+            <span class="mr-2">
+              {{ post.likes.count }}
+            </span>
+            {% else %}
+            <a class="fa fa-thumbs-o-up fa-2x hit-voting mr-1" href='/like/{{ post.id }}'></a>
+            <span class="mr-2">
+              {{ post.likes.count }}
+            </span>
+            {% endif %}
+            {% if request.user in post.dislikes.all %}
+            <a class="fa fa-thumbs-down fa-2x hit-voting ml-1 mr-1" href='/dislike/{{ post.id }}'></a>
+            <span>
+              {{ post.dislikes.count }}
+            </span>
+            {% else %}
+            <a class="fa fa-thumbs-o-down fa-2x hit-voting ml-1 mr-1" href='/dislike/{{ post.id }}'></a>
+            <span>
+              {{ post.dislikes.count }}
+            </span>
+            {% endif %}
+          </div>
+          <hr>
+          {% endif %}
+          <details>
+            <summary>Comments {{ post.comments.all.count }}</summary>
+            <form action="/comment/{{ post.id }}/" enctype="multipart/form-data" method="POST" class="form-horizontal">
+              {% csrf_token %}
+              {{ comment_form }}
+              <input class="btn btn-primary" type='submit' value='Submit'>
+            </form>
+            {% for comments in post.comments.all %}
+            <div class="comments" style="margin-left: 50px; border: 1px solid black; width: 30vw">
+              <a href="/profile/{{ comments.comment_by.id }}"><img src="{{ comments.comment_by.profile_image.url }}"
+                  width="50" height="50" class="rounded-circle"></a>
+              <p><a href="/profile/{{ comments.comment_by.id }}">{{ comments.comment_by }}</a> Replied:</p>
+              <p>{{ comments.content }}</p>
+              <p>{{ comments.created_at }}</p>
+              <p> Likes: {{ comments.likes.count }} </p>
+
+              {% if comments.liked %}
+              <a href="/like/{{ comments.id }}/comment"><button class="btn-xs">Dislike</button></a>
+              {% else %}
+              <a href="/like/{{ comments.id }}/comment"><button class="btn-xs">Like</button></a>
+              {% endif %}
+              {% if request.user == comments.author %}
+              <a href="/delete_comments/{{ comments.id }}/"><button>delete</button></a>
+              {% endif %}
+            </div>
+
+            {% endfor %}
+          </details>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </div>

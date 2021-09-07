@@ -23,12 +23,14 @@ def get_user_profile(request, user_id: int):
             cur_user = Account.objects.get(id=request.user.id)
             notif = Notification.objects.filter(
                 user_to_notify=cur_user, read=False)
+            posts = ScreamModel.objects.filter(posted_by=cur_user)
         except Account.DoesNotExist:
             return render(request, 'profile.html', {'account': account})
     except Account.DoesNotExist:
         messages.info(request, "This account does not exist!")
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    return render(request, 'profile.html', {'account': account, 'notif': notif})
+    return render(request, 'profile.html', {'account': account, 'notif': notif,
+                                            'posts': posts})
 
 
 @login_required
@@ -130,7 +132,9 @@ class EditUserProfile(View):
         cur_user = Account.objects.get(id=user_id)
         form = EditProfile(initial={
             'bio': cur_user.bio,
+            'header': cur_user.header,
             'date_of_birth': cur_user.date_of_birth,
+            'country': cur_user.country,
         })
         return render(request, 'forms/gen_form.html', {'form': form})
 
@@ -141,13 +145,15 @@ class EditUserProfile(View):
         if form.is_valid():
             data = form.cleaned_data
             cur_user.bio = data['bio']
+            cur_user.header = data['header']
             cur_user.date_of_birth = data['date_of_birth']
+            cur_user.country = data['country']
             cur_user.save()
             return render(request, 'profile.html', {'account': cur_user})
         else:
             print(form.errors)
             messages.info(request, "Error in the form!")
-            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+            return render(request, 'profile.html')
 
 
 # class ProfileImage(View):

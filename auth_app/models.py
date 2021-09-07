@@ -18,8 +18,8 @@ class Account(AbstractUser):
         blank=True)
     date_of_birth = models.DateField(
         auto_now=False, default='1990-01-01')
-    header = models.CharField(max_length=80, default="A 'lil sum sum")
-    country = CountryField()
+    header = models.CharField(max_length=80, editable=True)
+    country = CountryField(blank_label='(select country)')
     followers = models.ManyToManyField('self', symmetrical=False,
                                        related_name='auth_followers',
                                        blank=True)

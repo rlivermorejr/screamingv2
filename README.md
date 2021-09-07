@@ -31,6 +31,7 @@
 
 ## Features not yet implemented
  - Search for other users
+ - <b><u>Everything is set up to connect to MongoDB, I just have it all commented out while I am still editing the models.</u></b>
 
 ## Currently working on:
 - Styling for comments, profile, index

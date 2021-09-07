@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_countries',
     'auth_app',
     'post_app',
     'notification_app',
@@ -92,7 +93,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+############################
+# UNCOMMENT WHEN IMPLEMENTING MONGODB
+############################
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'scream-db',
+#         'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#                 'host': env('HOST')
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
