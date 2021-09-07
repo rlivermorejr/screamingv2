@@ -97,7 +97,6 @@ def post_tweet(request):
     post_tweet = ScreamForm()
     comment_form = CommentForm()
     tweets = ScreamModel.objects.all()[::-1]
-    sm = ScreamModel()
     try:
         cur_user = Account.objects.get(id=request.user.id)
         notif = Notification.objects.filter(
@@ -108,8 +107,7 @@ def post_tweet(request):
     return render(request, 'main.html', {'post_tweet': post_tweet,
                                          'tweets': tweets,
                                          'notif': notif,
-                                         'comment_form': comment_form,
-                                         'sm': sm})
+                                         'comment_form': comment_form})
 
 
 def mention(request, data, obj):

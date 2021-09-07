@@ -8,6 +8,7 @@ from auth_app.models import Account
 from notification_app.views import NotifyFollow
 from notification_app.models import Notification
 from post_app.models import ScreamModel
+from post_app.forms import CommentForm
 from user_app.forms import ChangeProfileImage, EditProfile, SearchProfile
 
 
@@ -23,14 +24,17 @@ def get_user_profile(request, user_id: int):
             cur_user = Account.objects.get(id=request.user.id)
             notif = Notification.objects.filter(
                 user_to_notify=cur_user, read=False)
-            posts = ScreamModel.objects.filter(posted_by=cur_user)
+            posts = ScreamModel.objects.filter(posted_by=cur_user)[::-1]
+            comment_form = CommentForm()
         except Account.DoesNotExist:
             return render(request, 'profile.html', {'account': account})
     except Account.DoesNotExist:
         messages.info(request, "This account does not exist!")
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    return render(request, 'profile.html', {'account': account, 'notif': notif,
-                                            'posts': posts})
+    return render(request, 'profile.html', {'account': account,
+                                            'notif': notif,
+                                            'posts': posts,
+                                            'comment_form': comment_form})
 
 
 @login_required
