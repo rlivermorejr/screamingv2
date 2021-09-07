@@ -1,47 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
 {% block content %}
-<!-- <section class='container'>
-  <div class='shadow p-4 mb-4 bg-white w-100'>
-    <img src="{{ account.profile_image.url }}" height="100" width="100" class="rounded-circle"
-      alt="{{ request.user.username }}">
-    <h3>Name</h3>
-    {{ account.username }}
-    </br>
-    <h3>BIO:</h3>
-    {{ account.bio }}
-    </br>
-    <h3>DOB:</h3>
-    {{ account.date_of_birth }}
-    <br>
-    <h3>Following:</h3>
-    <a href="/profile/{{ account.id }}/following/">{{ account.following.count }}</a>
-    <br>
-    <h3>Followers:</h3>
-    <a href="/profile/{{ account.id }}/followers/">{{ account.followers.count }}</a>
-    <br>
-    <a href="/profile/{{ account.id }}/likes/">
-      <h3>Likes</h3>
-    </a>
-    <br>
-    <a href="/profile/{{account.id}}/dislikes/">
-      <h3>Dislikes</h3>
-    </a>
-    <br>
-    {% if account.username == request.user.username %}
-    <a href='/profile/{{ account.id }}/edit/'>Edit Profile</a>
-    {% endif %}
-    </br>
-    <hr>
-    {% if request.user.is_authenticated %}
-    <a href='/profile/{{ account.id }}/follow/'><button class="btn-xs">Follow</button></a>
-    </br>
-    <a href='/profile/{{ account.id }}/unfollow/'><button class="btn-xs">Unfollow</button></a>
-    {% endif %}
-  </div>
-</section>
-</br> -->
-
 <div class="col-md-5">
   <div class="row">
     <div class="col-12 bg-white p-0 px-3 py-3 mb-3">
