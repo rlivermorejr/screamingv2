@@ -140,7 +140,7 @@ class EditUserProfile(View):
             'date_of_birth': cur_user.date_of_birth,
             'country': cur_user.country,
         })
-        return render(request, 'forms/gen_form.html', {'form': form})
+        return render(request, 'forms/edit_profile.html', {'form': form})
 
     def post(self, request, user_id):
         cur_user = Account.objects.get(id=user_id)

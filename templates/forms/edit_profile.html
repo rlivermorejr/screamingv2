@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block content %}
+<section class='container'>
+  <div class='shadow p-4 mb-4 bg-white w-100 text-center'>
+    <form method='POST' action="" class="input" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type='submit' value='Submit'>
+      </br>
+    </form>
+  </div>
+</section>
+<br>
+{% endblock content %}
