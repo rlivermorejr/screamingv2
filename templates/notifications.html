@@ -34,7 +34,10 @@
           {% else %}
           <td> </td>
           {% endif %}
-          <td class='text-right'><a href='/mark_read/{{ foo.id }}'><button type='submit' value='Read'>Read</button></a>
+          <td class='text-right'>
+            <a href='/mark_read/{{ foo.id }}'>
+              <i class="fa fa-check-square" aria-hidden="true"></i>
+            </a>
           </td>
         </tr>
       </tbody>

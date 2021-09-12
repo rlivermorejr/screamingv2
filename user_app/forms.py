@@ -10,7 +10,8 @@ class EditProfile(forms.Form):
     bio = forms.CharField(widget=forms.Textarea(
         attrs={'style': 'width:80%;height:60px;'}))
     header = forms.CharField(max_length=80)
-    date_of_birth = forms.DateField(label="Date of Birth YYYY/MM/DD")
+    date_of_birth = forms.DateField(
+        label="Date of Birth (FORMAT:YYYY-MM-DD)")
     country = CountryField().formfield()
 
     # class Meta:
