@@ -9,7 +9,7 @@ from notification_app.views import NotifyFollow
 from notification_app.models import Notification
 from post_app.models import ScreamModel
 from post_app.forms import CommentForm
-from user_app.forms import ChangeProfileImage, EditProfile, SearchProfile
+from user_app.forms import EditProfile
 
 
 def get_user_profile(request, user_id: int):
@@ -156,7 +156,7 @@ class EditUserProfile(View):
             return render(request, 'profile.html', {'account': cur_user})
         else:
             print(form.errors)
-            messages.info(request, "Error in the form!")
+            messages.info(request, form.errors)
             return render(request, 'profile.html')
 
 

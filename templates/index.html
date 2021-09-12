@@ -72,10 +72,14 @@
   <!-- prints error messages -->
   {% if messages %}
   {% for message in messages %}
-  <div class="p-4 mb-4 bg-white w-100 text-center">
-    <div class="alert alert-warning" style="margin-right:80%; text-align:center">
-      <div class="message">
-        {{ message }}
+  <div class="container">
+    <div class="p-4 mb-4 bg-white w-100">
+      <div class="d-flex justify-content-center">
+        <div class="alert alert-warning w-25 text-center">
+          <div class="message">
+            {{ message }}
+          </div>
+        </div>
       </div>
     </div>
   </div>

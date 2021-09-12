@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils import timezone
+import math
+import datetime
+import time
 
 from auth_app.models import Account
 
@@ -19,17 +22,29 @@ class ScreamModel(models.Model):
                                       blank=True,
                                       related_name='post_comments')
 
-    # def elapsed(self):
-    #     seconds = self.creation_time
-    #     min, sec = divmod(seconds, 60)
-    #     hour, min = divmod(min, 60)
-    #     return seconds.second
-    #     if hour == 1:
-    #         return "%d hour ago", (hour)
-    #     if hour > 1:
-    #         return "%d hours ago", (hour)
-    #     if hour == 0:
-    #         return "%d minutes ago", (min)
+    # @register.filter
+    # def duration(td):
+    #     total_seconds = int(td.total_seconds())
+    #     hours = total_seconds // 3600
+    #     minutes = (total_seconds % 3600) // 60
+
+    #     return '{} hours {} min'.format(hours, minutes)
+
+    def elapsed(self):
+        seconds = self.creation_time.timestamp()
+        dt = time.time()
+        diff = dt - seconds
+        diff_time = datetime.timedelta(seconds=diff)
+        ts = int(diff_time.total_seconds())
+        if ts < 3600:
+            minutes = (ts % 3600) // 60
+            return "%d Minutes ago" % (minutes)
+        if diff_time.days > 0:
+            return "%d Days ago" % (diff_time.days)
+        if diff_time.days == 0:
+            rounded = (math.ceil(ts))
+            hours = rounded // 3600
+            return "%d Hours ago" % (hours)
 
     def __str__(self):
         return self.content

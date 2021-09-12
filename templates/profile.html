@@ -10,6 +10,12 @@
           <p class="fw-bold h4 mt-2 text-capitalize">{{ account.username }}</p>
           <p class="text-muted">{{ account.header }}</p>
           <p class="text-muted">{{ account.bio }}</p>
+          <p class="text-muted">{{ account.followers.count }} | {{ account.following.count }}</p>
+          {% if request.user.is_authenticated %}
+          {% if request.user.id is account.id %}
+          <p class="text-muted"><a href="/profile/{{ account.id }}/edit">Edit Profile</a></p>
+          {% endif %}
+          {% endif %}
           {% if request.user.is_authenticated and request.user.username != account.username %}
           <div class="d-flex ">
             {% if request.user not in account.followers.all %}
@@ -89,7 +95,7 @@
               {{ post.content }}!!!
             </div>
             <p class='time'>
-              {{ post.creation_time }}
+              {{ post.elapsed}}
             </p>
             <br>
             {% if request.user.is_authenticated %}
