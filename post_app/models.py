@@ -22,13 +22,8 @@ class ScreamModel(models.Model):
                                       blank=True,
                                       related_name='post_comments')
 
-    # @register.filter
-    # def duration(td):
-    #     total_seconds = int(td.total_seconds())
-    #     hours = total_seconds // 3600
-    #     minutes = (total_seconds % 3600) // 60
-
-    #     return '{} hours {} min'.format(hours, minutes)
+    def __str__(self):
+        return self.content
 
     def elapsed(self):
         seconds = self.creation_time.timestamp()
@@ -38,16 +33,17 @@ class ScreamModel(models.Model):
         ts = int(diff_time.total_seconds())
         if ts < 3600:
             minutes = (ts % 3600) // 60
-            return "%d Minutes ago" % (minutes)
+            return "%d min ago" % (minutes)
         if diff_time.days > 0:
-            return "%d Days ago" % (diff_time.days)
+            return "%d days ago" % (diff_time.days)
         if diff_time.days == 0:
             rounded = (math.ceil(ts))
             hours = rounded // 3600
-            return "%d Hours ago" % (hours)
-
-    def __str__(self):
-        return self.content
+            if hours > 1:
+                return "%d hrs ago" % (hours)
+            else:
+                minutes = (ts % 3600) // 60
+                return "%d hr %d min ago" % (hours, minutes)
 
 
 class CommentModel(models.Model):
@@ -63,3 +59,23 @@ class CommentModel(models.Model):
 
     def __str__(self):
         return self.content
+
+    def elapsed(self):
+        seconds = self.created_at.timestamp()
+        dt = time.time()
+        diff = dt - seconds
+        diff_time = datetime.timedelta(seconds=diff)
+        ts = int(diff_time.total_seconds())
+        if ts < 3600:
+            minutes = (ts % 3600) // 60
+            return "%d min ago" % (minutes)
+        if diff_time.days > 0:
+            return "%d days ago" % (diff_time.days)
+        if diff_time.days == 0:
+            rounded = (math.ceil(ts))
+            hours = rounded // 3600
+            if hours == 1:
+                return "%d hrs ago" % (hours)
+            else:
+                minutes = (ts % 3600) // 60
+                return "%d hr %d min ago" % (hours, minutes)

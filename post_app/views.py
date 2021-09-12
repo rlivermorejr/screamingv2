@@ -7,7 +7,8 @@ from auth_app.models import Account
 from post_app.models import ScreamModel, CommentModel
 from post_app.forms import ScreamForm, CommentForm
 from notification_app.views import (
-    NotifyLike, NotifyDislike, NotifyMention, NotifyComment)
+    NotifyLike, NotifyDislike, NotifyMention, NotifyComment,
+    NotifyDislikeComment, NotifyLikeComment)
 from notification_app.models import Notification
 
 
@@ -29,7 +30,7 @@ def view_post(request, post_id: int):
                                       'comment_form': comment_form})
 
 
-def like_view(request, post_id):
+def like_view(request, post_id: int):
     """
     Links the user that clicks the like button to
     the Tweet object and then calls the
@@ -52,7 +53,30 @@ def like_view(request, post_id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-def dislike_view(request, post_id):
+def like_comment(request, post_id: int, comment_id: int):
+    """
+    Links the user that clicks the like button to
+    the Tweet object and then calls the
+    corresponding notify function. This is done for
+    future implementation of being able to view all
+    of a users likes
+    """
+    comment = CommentModel.objects.get(id=comment_id)
+    cur_user = Account.objects.get(id=request.user.id)
+    if cur_user in comment.likes.all():
+        comment.likes.remove(cur_user)
+        comment.save()
+    else:
+        comment.likes.add(cur_user)
+        if cur_user in comment.dislikes.all():
+            comment.dislikes.remove(cur_user)
+            comment.save()
+        comment.save()
+        NotifyLikeComment(request, comment_id, post_id)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def dislike_view(request, post_id: int):
     """
     Links the user that clicks the dislike button to
     the Tweet object and then calls the
@@ -72,6 +96,29 @@ def dislike_view(request, post_id):
             post.save()
         post.save()
         NotifyDislike(request, post_id)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def dislike_comment(request, post_id: int, comment_id: int):
+    """
+    Links the user that clicks the dislike button to
+    the Tweet object and then calls the
+    corresponding notify function. This is done for
+    future implementation of being able to view all
+    of a users dislikes
+    """
+    comment = CommentModel.objects.get(id=comment_id)
+    cur_user = Account.objects.get(id=request.user.id)
+    if cur_user in comment.dislikes.all():
+        comment.dislikes.remove(cur_user)
+        comment.save()
+    else:
+        comment.dislikes.add(cur_user)
+        if cur_user in comment.likes.all():
+            comment.likes.remove(cur_user)
+            comment.save()
+        comment.save()
+        NotifyDislikeComment(request, comment_id, post_id)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 

@@ -20,7 +20,8 @@ from django.conf.urls.static import static
 
 from auth_app.views import CreateUser, index_page, login_user, logout_user
 from post_app.views import (post_tweet, like_view, dislike_view,
-                            view_post, CommentView)
+                            view_post, CommentView, like_comment,
+                            dislike_comment)
 from user_app.views import (EditUserProfile, get_user_profile, follow_user,
                             unfollow_user, followers, following,
                             user_likes, user_dislikes)
@@ -35,6 +36,7 @@ urlpatterns = [
     path('logout/', logout_user),
     path('create_user/', CreateUser.as_view(), name='create_user'),
     path('like/<int:post_id>/', like_view),
+    path('like/<int:post_id>/comment/<int:comment_id>/', like_comment),
     path('post/<int:post_id>/', view_post),
     path('profile/<int:user_id>/likes/', user_likes),
     path('profile/<int:user_id>/dislikes/', user_dislikes),
@@ -42,6 +44,7 @@ urlpatterns = [
     path('profile/<int:user_id>/', get_user_profile, name='profile'),
     path('profile/<int:user_id>/edit/', EditUserProfile.as_view()),
     path('dislike/<int:post_id>/', dislike_view),
+    path('dislike/<int:post_id>/comment/<int:comment_id>/', dislike_comment),
     path('profile/<int:user_id>/follow/', follow_user, name='follow'),
     path('profile/<int:user_id>/unfollow/', unfollow_user, name='unfollow'),
     path('profile/<int:user_id>/followers/', followers),

@@ -14,7 +14,8 @@ def show_notify(request, user_id: int):
     and filters only the ones linked to current user
     """
     my_user = Account.objects.get(id=user_id)
-    notif = Notification.objects.filter(user_to_notify=my_user, read=False)
+    notif = Notification.objects.filter(
+        user_to_notify=my_user, read=False)[::-1]
     return render(request, 'notifications.html', {'notif': notif})
 
 
@@ -76,6 +77,26 @@ def NotifyLike(request, post_id: int):
     return
 
 
+def NotifyLikeComment(request, comment_id: int, post_id: int):
+    """
+    Creates a Notification object when a users
+    post recieves a like
+    """
+    cur_user = Account.objects.get(id=request.user.id)
+    comment = CommentModel.objects.get(id=comment_id)
+    post = ScreamModel.objects.get(id=post_id)
+    split = comment.content.split()[:3]
+    to_user = f"You've recieved a like on your comment \'{' '.join(split).upper()}...\'"
+    Notification.objects.create(
+        message=to_user,
+        made_by=cur_user,
+        post_id=post.id,
+        user_to_notify=comment.comment_by,
+        follower=False,
+    )
+    return
+
+
 def NotifyDislike(request, post_id: int):
     """
     Creates a Notification object when a users
@@ -90,6 +111,26 @@ def NotifyDislike(request, post_id: int):
         made_by=cur_user,
         post_id=post.id,
         user_to_notify=post.posted_by,
+        follower=False,
+    )
+    return
+
+
+def NotifyDislikeComment(request, comment_id: int, post_id: int):
+    """
+    Creates a Notification object when a users
+    post recieves a dislike
+    """
+    cur_user = Account.objects.get(id=request.user.id)
+    comment = CommentModel.objects.get(id=comment_id)
+    post = ScreamModel.objects.get(id=post_id)
+    split = comment.content.split()[:3]
+    to_user = f"You've recieved a dislike on your comment \'{' '.join(split).upper()}...\'"
+    Notification.objects.create(
+        message=to_user,
+        made_by=cur_user,
+        post_id=post.id,
+        user_to_notify=comment.comment_by,
         follower=False,
     )
     return

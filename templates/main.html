@@ -79,62 +79,66 @@
           </div>
         </div>
       </div>
-      <!-- <details>
-        <summary>Comments</summary> -->
       <div class="comment-bottom bg-white p-2 px-4">
-        <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-          <a href="/profile/{{ comments.comment_by.id }}/"></a>
-          <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ request.user.profile_image.url }}"
-            width="33">
-          <form action="/comment/{{ post.id }}/" enctype="multipart/form-data" method="POST" class="form-horizontal">
-            {% csrf_token %}
-            {{ comment_form }}
-            <input class="btn btn-primary mb-2" type='submit' value='Submit'>
-          </form>
-        </div>
-        {% for comments in post.comments.all %}
-        <div class="commented-section">
-          <div class="d-flex flex-row align-items-center">
-            <a class="font-regular mr-2 mb-2" href="/profile/{{ comments.comment_by.id }}/">
-              {{ comments.comment_by }}
-            </a>
+        {% if post.comments.count > 2 %}
+        <details>
+          <summary>Comments</summary>
+          {% endif %}
+          <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+            <a href="/profile/{{ comments.comment_by.id }}/"></a>
+            <img class="img-fluid img-responsive rounded-circle mr-2" src="{{ request.user.profile_image.url }}"
+              width="33">
+            <form action="/comment/{{ post.id }}/" enctype="multipart/form-data" method="POST" class="form-horizontal">
+              {% csrf_token %}
+              {{ comment_form }}
+              <input class="btn btn-primary mb-2" type='submit' value='Submit'>
+            </form>
           </div>
-          <div class="comment-text">
-            <div>
-              {{ comments.content }}!!!
+          {% for comments in post.comments.all %}
+          <div class="commented-section">
+            <div class="d-flex flex-row align-items-center">
+              <a class="font-regular mr-2 mb-2" href="/profile/{{ comments.comment_by.id }}/">
+                {{ comments.comment_by }}
+              </a>
             </div>
-            <div class="font-small mt-2 mb-1">
-              {{ comments.created_at }}
+            <div class="comment-text">
+              <div>
+                {{ comments.content }}!!!
+              </div>
+              <div class="font-small mt-2 mb-1">
+                {{ comments.elapsed }}
+              </div>
+            </div>
+            <div class="reply-section font-small">
+              <div class="d-flex flex-row align-items-center voting-icons">
+                <a class="fa fa-sort-up fa-2x mt-3 hit-voting"
+                  href="/like/{{ post.id }}/comment/{{ comments.id }}/"></a>
+                <span class="ml-1 mr-2">
+                  {{ comments.likes.count }}
+                </span>
+                <a class="fa fa-sort-down fa-2x mb-3 hit-voting"
+                  href="/dislike/{{ post.id }}/comment/{{ comments.id }}/"></a>
+                <span class="ml-1 mr-2">
+                  {{ comments.dislikes.count }}
+                </span>
+                <span class=""></span>
+                {% if comments.comment_by == request.user %}
+                <a href="/delete_comments/{{ comments.id }}/">
+                  <button>delete</button></a>
+                {% endif %}
+                </span>
+              </div>
+              <!-- <span class="dot ml-2"></span> -->
+              <!-- <h6 class="ml-2 mt-1">Reply</h6> -->
             </div>
           </div>
-          <div class="reply-section font-small">
-            <div class="d-flex flex-row align-items-center voting-icons">
-              <a class="fa fa-sort-up fa-2x mt-3 hit-voting" href="/like/{{ comments.id }}/comment/"></a>
-              <span class="ml-1 mr-2">
-                {{ comments.likes.count }}
-              </span>
-              <a class="fa fa-sort-down fa-2x mb-3 hit-voting" href="/dislike/{{ comments.id }}/comment/"></a>
-              <span class="ml-1 mr-2">
-                {{ comments.dislikes.count }}
-              </span>
-              <span class=""></span>
-              {% if comments.comment_by == request.user %}
-              <a href="/delete_comments/{{ comments.id }}/">
-                <button>delete</button></a>
-              {% endif %}
-              </span>
-            </div>
-            <!-- <span class="dot ml-2"></span> -->
-            <!-- <h6 class="ml-2 mt-1">Reply</h6> -->
-          </div>
-        </div>
-        {% endfor %}
+          {% endfor %}
+        </details>
       </div>
     </div>
-    </details>
   </div>
 </div>
-</div>
+
 
 {% endfor %}
 {% endblock content %}
