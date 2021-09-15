@@ -22,7 +22,7 @@
         </tr>
       </thead>
       {% csrf_token %}
-      {% for foo in notif %}
+      {% for foo in notif_list %}
       {% if foo.read == False %}
       {% autoescape off %}
       <tbody>
@@ -30,7 +30,7 @@
           <td>{{ foo.message }}</td>
           <td>{{ foo.rec_date }}</td>
           {% if foo.follower == False %}
-          <td><a href='/post/{{ foo.post_id }}'>See</a></td>
+          <td><a href='/post/{{ foo.post_id }}'>View Post</a></td>
           {% else %}
           <td> </td>
           {% endif %}

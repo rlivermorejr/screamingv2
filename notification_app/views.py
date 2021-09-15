@@ -14,9 +14,12 @@ def show_notify(request, user_id: int):
     and filters only the ones linked to current user
     """
     my_user = Account.objects.get(id=user_id)
-    notif = Notification.objects.filter(
+    notif_list = Notification.objects.filter(
         user_to_notify=my_user, read=False)[::-1]
-    return render(request, 'notifications.html', {'notif': notif})
+    notif = Notification.objects.filter(
+        user_to_notify=my_user, read=False)
+    return render(request, 'notifications.html', {'notif_list': notif_list,
+                                                  'notif': notif})
 
 
 def NotifyMention(request, user_id: int, post_id: int):
@@ -162,17 +165,13 @@ def mark_read(request, noti_id: int):
     or will mark them all as read depending on
     the button pressed
     """
-    query = request.GET.get('data')
+    # query = request.GET.get('data')
     try:
         obj = Notification.objects.get(id=noti_id)
     except Notification.DoesNotExist:
-        if query == 'read':
-            obj = Notification.objects.filter(
-                user_to_notify=request.user.id)
-            for each in obj:
-                each.read = True
-                each.save()
-    else:
-        obj.read = True
-        obj.save()
+        obj = Notification.objects.filter(
+            user_to_notify=request.user.id)
+        for each in obj:
+            each.read = True
+            each.save()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])

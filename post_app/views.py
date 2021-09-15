@@ -122,6 +122,10 @@ def dislike_comment(request, post_id: int, comment_id: int):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+def delete_comment(request):
+    pass
+
+
 def post_tweet(request):
     """
     If statement to redirect to login page if
