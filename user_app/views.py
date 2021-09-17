@@ -156,8 +156,8 @@ class EditUserProfile(View):
             return render(request, 'profile.html', {'account': cur_user})
         else:
             print(form.errors)
-            messages.info(request, form.errors)
-            return render(request, 'profile.html')
+            messages.info(request, "Error in the form!")
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 # class ProfileImage(View):

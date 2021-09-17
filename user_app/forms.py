@@ -8,7 +8,7 @@ class EditProfile(forms.Form):
     #     super(EditProfile, self).__init__(*args, **kwargs)
     #     self.fields['date_of_birth'].label = 'Date of Birth (YYYY/MM/DD)'
     bio = forms.CharField(widget=forms.Textarea(
-        attrs={'style': 'width:80%;height:60px;'}))
+        attrs={'style': 'width:50%;height:100px;'}), label="")
     header = forms.CharField(max_length=80)
     date_of_birth = forms.DateField(
         label="Date of Birth (FORMAT:YYYY-MM-DD)")

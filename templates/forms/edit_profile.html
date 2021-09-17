@@ -4,8 +4,34 @@
   <div class='shadow p-4 mb-4 bg-white w-100 text-center'>
     <form method='POST' action="" class="input" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
-      <input type='submit' value='Submit'>
+
+      <h3>Bio</h3>
+
+      {{ form.bio }}
+      <br />
+      <br />
+
+
+      <h3>One Liner:</h3>
+
+      {{ form.header }}
+      <br />
+      <br />
+
+      <h3>DOB <i>(Format YYYY-MM-DD):</i></h3>
+
+      {{ form.date_of_birth }}
+      <br />
+      <br />
+
+
+      <h3>Country:</h3>
+
+      {{ form.country }}
+      <br />
+
+      <hr />
+      <input type='submit' value='Save'>
       </br>
     </form>
   </div>
