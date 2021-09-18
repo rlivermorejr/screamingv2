@@ -1,4 +1,10 @@
 {% extends "index.html" %}
+{% load static %}
+
+{% block headtag %}
+<script type="text/javascript" src="{% static 'custom/jquery.js' %}"></script>
+{% endblock headtag %}
+
 {% block content %}
 <div class="container mt-2">
   <div class='shadow p-4 mb-4 bg-white w-100'>
@@ -28,7 +34,7 @@
       <!-- goes in third td tag -->
       <!-- <a href='/post/{{ foo.post_id }}'>View Post</a> -->
       <tbody>
-        <tr class='clickable-row' data-href='url:/post/{{ foo.post_id }}'>
+        <tr class='clickable-row' data-href='/post/{{ foo.post_id }}'>
           <td>{{ foo.message }}</td>
           <td>{{ foo.rec_date }}</td>
           {% if foo.follower == False %}
@@ -38,7 +44,10 @@
           {% endif %}
           <td class='text-right'>
             <a href='/mark_read/{{ foo.id }}'>
-              <i class="fa fa-check-square" aria-hidden="true"></i>
+              <div class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
+              </div>
             </a>
           </td>
         </tr>

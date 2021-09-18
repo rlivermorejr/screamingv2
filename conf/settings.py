@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'notification_app',
     'user_app',
     'err_handler',
+    'jquery',
 ]
 
 MIDDLEWARE = [
