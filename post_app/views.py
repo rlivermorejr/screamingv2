@@ -20,10 +20,14 @@ def view_post(request, post_id: int):
     temp = 'detail_pages/single_post.html'
     try:
         post = ScreamModel.objects.get(id=post_id)
+        cur_user = Account.objects.get(id=request.user.id)
         comments = CommentModel.objects.filter(orig_post=post)
+        notif = Notification.objects.filter(
+            user_to_notify=cur_user, read=False)
         return render(request, temp, {'post': post,
                                       'comment': comments,
-                                      'comment_form': comment_form})
+                                      'comment_form': comment_form,
+                                      'notif': notif})
     except Exception as e:
         print(e)
         return render(request, temp, {'post': post,

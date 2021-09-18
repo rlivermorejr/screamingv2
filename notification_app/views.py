@@ -11,7 +11,7 @@ from notification_app.models import Notification
 def show_notify(request, user_id: int):
     """
     Gets all unread notifications from Notification model
-    and filters only the ones linked to current user
+    and filters only the ones linked to logged in user
     """
     my_user = Account.objects.get(id=user_id)
     notif_list = Notification.objects.filter(

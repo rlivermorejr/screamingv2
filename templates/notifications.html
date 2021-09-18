@@ -25,12 +25,14 @@
       {% for foo in notif_list %}
       {% if foo.read == False %}
       {% autoescape off %}
+      <!-- goes in third td tag -->
+      <!-- <a href='/post/{{ foo.post_id }}'>View Post</a> -->
       <tbody>
-        <tr href='/post/{{ foo.id }}'>
+        <tr class='clickable-row' data-href='url:/post/{{ foo.post_id }}'>
           <td>{{ foo.message }}</td>
           <td>{{ foo.rec_date }}</td>
           {% if foo.follower == False %}
-          <td><a href='/post/{{ foo.post_id }}'>View Post</a></td>
+          <td> </td>
           {% else %}
           <td> </td>
           {% endif %}
@@ -48,4 +50,5 @@
   </div>
   {% endif %}
 </div>
+
 {% endblock content %}

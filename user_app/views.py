@@ -24,7 +24,7 @@ def get_user_profile(request, user_id: int):
             cur_user = Account.objects.get(id=request.user.id)
             notif = Notification.objects.filter(
                 user_to_notify=cur_user, read=False)
-            posts = ScreamModel.objects.filter(posted_by=cur_user)[::-1]
+            posts = ScreamModel.objects.filter(posted_by=cur_user)[3::-1]
             comment_form = CommentForm()
         except Account.DoesNotExist:
             return render(request, 'profile.html', {'account': account})
