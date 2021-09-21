@@ -1,6 +1,9 @@
 from django import forms
 from auth_app.models import Account
 from django_countries.fields import CountryField
+from django.conf import settings
+
+DATE_INPUT_FORMATS = ['%m/%d/%Y']
 
 
 class EditProfile(forms.Form):
@@ -11,7 +14,10 @@ class EditProfile(forms.Form):
         attrs={'style': 'width:50%;height:100px;'}), label="")
     header = forms.CharField(max_length=80)
     date_of_birth = forms.DateField(
-        label="Date of Birth (FORMAT:YYYY-MM-DD)")
+        widget=forms.DateInput(
+            format='%m/%d/%Y', attrs={'class': 'datepicker'}),
+        input_formats=('%m/%d/%Y', )
+    )
     country = CountryField().formfield()
 
     # class Meta:

@@ -1,4 +1,14 @@
 {% extends "index.html" %}
+{% load static %}
+
+{% block headtag %}
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="{% static 'custom/jquery/date.js' %}"></script>
+{% endblock headtag %}
+
 {% block content %}
 <section class='container'>
   <div class='shadow p-4 mb-4 bg-white w-100 text-center'>
@@ -18,8 +28,7 @@
       <br />
       <br />
 
-      <h3>DOB <i>(Format YYYY-MM-DD):</i></h3>
-
+      <h3>DOB</h3>
       {{ form.date_of_birth }}
       <br />
       <br />

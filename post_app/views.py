@@ -126,8 +126,15 @@ def dislike_comment(request, post_id: int, comment_id: int):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-def delete_comment(request):
-    pass
+def delete_comment(request, comment_id: int):
+    comment = CommentModel.objects.get(id=comment_id)
+    cur_user = Account.objects.get(id=request.user.id)
+    if comment.comment_by == cur_user.username:
+        comment.delete()
+        comment.save()
+    else:
+        messages.info(request, "Cannot delete comment!")
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 def post_tweet(request):
