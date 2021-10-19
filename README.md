@@ -8,15 +8,27 @@
 - Dependencies are listed in each
 <hr>
 
-## <u>Table of Contents</u>
-<p style="font-size: 14px">Apps:</p>
+### TO START:
 
+<span><i>
+1. If in VSCode, rightclick readme file and click 'open preview'
+2. Click terminal/open terminal and install dependencies, I used poetry so for example 'poetry install' will install all dependencies in pyproject.toml
+  2a. If you do not have poetry then there is a requirements.txt you can use to install the dependencies
+3. After the install, run 'python manage.py runserver'
+4. In your web browser type '127.0.0.1:8000' in the address bar and you can now create a profile and access the site
+</i></span>
+
+<hr>
+
+## <u>Table of Contents</u>
+
+<p style="font-size: 16px">Folder Tree:</p>
 
 - <b>auth_app</b>
   * Holds everything to do with logging in/out (forms, models, views)
   * Contains the user model < Account >
   * Handles index page
-- <b>notify_app</b>
+- <b>notification_app</b>
   * Contains all views for creating notifications
   * Those views are called in other apps as needed
   * Contains the notification model < Notification >
@@ -34,5 +46,6 @@
  - <b><u>Everything is set up to connect to MongoDB, I just have it all commented out while I am still editing the models.</u></b>
 
 ## Currently working on:
-- Styling for comments, profile, index
+- insensitive username logic
 - Upload different profile image
+
