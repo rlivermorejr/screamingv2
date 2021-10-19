@@ -1,6 +1,6 @@
 # Screaming (A TWITTER CLONE!!!)
 
-- Poetry was used as package manager
+- Poetry was used as the package manager
 <pre>pyproject.toml</pre>
 <pre>requirements.txt</pre>
 <pre>dev-requirements.txt</pre>
@@ -11,7 +11,7 @@
 ### TO START:
 
 <span><i>
-1. If in VSCode, rightclick readme file and click 'open preview'
+1. If in VSCode, right-click readme file and click 'open preview'
 2. Click terminal/open terminal and install dependencies, I used poetry so for example 'poetry install' will install all dependencies in pyproject.toml
   2a. If you do not have poetry then there is a requirements.txt you can use to install the dependencies
 3. After the install, run 'python manage.py runserver'
@@ -22,7 +22,7 @@
 
 ## <u>Table of Contents</u>
 
-<p style="font-size: 16px">Folder Tree:</p>
+<p style="font-size: 16px">Directory Tree:</p>
 
 - <b>auth_app</b>
   * Holds everything to do with logging in/out (forms, models, views)
