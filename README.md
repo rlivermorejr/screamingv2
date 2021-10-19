@@ -22,7 +22,7 @@
 
 ## <u>Table of Contents</u>
 
-<p style="font-size: 16px">Directory Tree:</p>
+<p style="font-size: 16px">Apps:</p>
 
 - <b>auth_app</b>
   * Holds everything to do with logging in/out (forms, models, views)
