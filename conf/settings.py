@@ -140,10 +140,14 @@ USE_L10N = False
 
 USE_TZ = True
 
-#################################
-# Everything below was added by #
-#       Russell Livermore       #
-#################################
+# vvvvvvvvvvvvvvvvvvvvvvvvvvvvv #
+# vvvvvvvvv Added By vvvvvvvvvv #
+# vvvvv Russell Livermore vvvvv #
+# vvvvvvvvvvvvvvvvvvvvvvvvvvvvv #
+
+AUTHENTICATION_BACKENDS = (
+    'auth_app.backends.CaseInsensitiveModelBackend', )
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

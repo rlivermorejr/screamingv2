@@ -46,8 +46,11 @@ class CreateUser(View):
             )
             logout_user(request)
             return HttpResponseRedirect(reverse('login_page'))
+        # if form.has_error:
+        #     messages.info(request, "Username already exists!")
+        #     return HttpResponseRedirect(request.META['HTTP_REFERER'])
         else:
-            messages.info(request, "Passwords are not good enough!")
+            messages.info(request, form.errors)
             return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
