@@ -166,14 +166,19 @@ def mark_read(request, noti_id: int):
     the button pressed
     """
     query = request.GET.get('data')
-    try:
-        obj = Notification.objects.get(id=noti_id)
-        obj = Notification.objects.filter(
-            user_to_notify=request.user.id)
+    # try:
+    obj = Notification.objects.get(id=noti_id)
+    # obj = Notification.objects.filter(
+    #     user_to_notify=request.user.id)
+    # each.read = True
+    # each.save()
+    # return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    if obj.DoesNotExist and query == 'read':
         for each in obj:
-            each.read = True
-            each.save()
-            return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    except Notification.DoesNotExist:
-        messages.info(request, "Cannot delete comment!")
-        return render(request, 'notifications.html')
+            print(each)
+            # each.read = True
+            # each.save()
+            # return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    # except Notification.DoesNotExist:
+    #     messages.info(request, "Error deleting notification!")
+    #     return render(request, 'notifications.html')

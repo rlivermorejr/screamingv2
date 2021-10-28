@@ -3,7 +3,7 @@ from auth_app.models import Account
 
 
 class Notification(models.Model):
-    message = models.TextField(max_length=25)
+    message = models.TextField(max_length=100)
     made_by = models.ForeignKey(
         Account, on_delete=models.CASCADE, related_name='from_user')
     user_to_notify = models.ForeignKey(

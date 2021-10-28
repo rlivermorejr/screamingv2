@@ -42,6 +42,7 @@ urlpatterns = [
     path('profile/<int:user_id>/likes/', user_likes),
     path('profile/<int:user_id>/dislikes/', user_dislikes),
     path('mark_read/<int:noti_id>/', mark_read),
+    path('mark_read/', mark_read),
     path('profile/<int:user_id>/', get_user_profile, name='profile'),
     path('profile/<int:user_id>/edit/', EditUserProfile.as_view()),
     path('dislike/<int:post_id>/', dislike_view),
