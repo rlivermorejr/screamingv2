@@ -173,7 +173,7 @@ def mark_read(request, noti_id: int):
     # each.read = True
     # each.save()
     # return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    if obj.DoesNotExist and query == 'read':
+    if query == 'read':
         for each in obj:
             print(each)
             # each.read = True
