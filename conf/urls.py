@@ -22,8 +22,8 @@ from auth_app.views import CreateUser, index_page, login_user, logout_user
 from post_app.views import (delete_comment, post_tweet, like_view, dislike_view,
                             view_post, CommentView, like_comment,
                             dislike_comment)
-from user_app.views import (EditUserProfile, get_user_profile, follow_user,
-                            unfollow_user, followers, following,
+from user_app.views import (EditUserProfile, ProfileImage, get_user_profile,
+                            follow_user, unfollow_user, followers, following,
                             user_likes, user_dislikes)
 from notification_app.views import show_notify, mark_read
 
@@ -45,6 +45,7 @@ urlpatterns = [
     path('mark_read/', mark_read),
     path('profile/<int:user_id>/', get_user_profile, name='profile'),
     path('profile/<int:user_id>/edit/', EditUserProfile.as_view()),
+    path('profile/<int:user_id>/editproimage/', ProfileImage.as_view()),
     path('dislike/<int:post_id>/', dislike_view),
     path('dislike/<int:post_id>/comment/<int:comment_id>/', dislike_comment),
     path('profile/<int:user_id>/follow/', follow_user, name='follow'),

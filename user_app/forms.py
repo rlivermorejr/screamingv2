@@ -14,14 +14,6 @@ class EditProfile(forms.Form):
     )
     country = CountryField().formfield()
 
-    # class Meta:
-    #     model = Account
-    #     fields = [
-    #         'bio',
-    #         'date_of_birth',
-    #         'country'
-    #     ]
-
     # class PersonForm(forms.ModelForm):
 
     # class Meta:

@@ -11,7 +11,9 @@
     <div class="row ml-1">
       <div class="col-12 bg-white py-2">
         <div class="d-flex flex-column align-items-center">
-          <img class="photo" src={{ account.profile_image.url }} alt="" height="80" width="100">
+          <a href="/profile/{{ account.id }}/editproimage">
+            <img class="photo" src={{ account.profile_image.url }} alt="" height="80" width="100">
+          </a>
           <p class="fw-bold h4 mt-2 text-capitalize">{{ account.username }}</p>
           <p class="text-muted">{{ account.header }}</p>
           <p class="text-muted">{{ account.bio }}</p>

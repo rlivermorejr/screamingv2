@@ -9,7 +9,7 @@ from notification_app.views import NotifyFollow
 from notification_app.models import Notification
 from post_app.models import ScreamModel
 from post_app.forms import CommentForm
-from user_app.forms import EditProfile
+from user_app.forms import ChangeProfileImage, EditProfile
 
 
 def get_user_profile(request, user_id: int):
@@ -160,24 +160,24 @@ class EditUserProfile(View):
             return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-# class ProfileImage(View):
-#     def get(self, request, user_id):
-#         cur_user = Account.objects.get(id=user_id)
-#         form = ChangeProfileImage(initial={
-#             'profile_image': cur_user.profile_image
-#         })
-#         return render(request, 'forms/gen_form.html', {'form': form})
+class ProfileImage(View):
+    def get(self, request, user_id):
+        cur_user = Account.objects.get(id=user_id)
+        form = ChangeProfileImage(initial={
+            'profile_image': cur_user.profile_image
+        })
+        return render(request, 'forms/gen_form.html', {'form': form})
 
-#     def post(self, request, user_id):
-#         cur_user = Account.objects.get(id=user_id)
-#         form = ChangeProfileImage(request.POST, request.FILES)
-#         print(form.errors)
-#         if form.is_valid():
-#             data = form.cleaned_data
-#             cur_user.profile_image = data['profile_image']
-#             cur_user.save()
-#             return render(request, 'profile.html', {'account': cur_user})
-#         else:
-#             print(form.errors)
-#             messages.info(request, "Error in the form!")
-#             return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    def post(self, request, user_id):
+        cur_user = Account.objects.get(id=user_id)
+        form = ChangeProfileImage(request.POST, request.FILES)
+        print(form.errors)
+        if form.is_valid():
+            data = form.cleaned_data
+            cur_user.profile_image = data['profile_image']
+            cur_user.save()
+            return render(request, 'profile.html', {'account': cur_user})
+        else:
+            print(form.errors)
+            messages.info(request, "Error in the form!")
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
