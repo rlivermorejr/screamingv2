@@ -21,6 +21,7 @@
           {% if request.user.is_authenticated %}
           {% if request.user.id is account.id %}
           <p class="text-muted"><a href="/profile/{{ account.id }}/edit">Edit Profile</a></p>
+          <p class="text-muted"><a href="/profile/{{ account.id }}/editproimage">Change Profile Image</a></p>
           {% endif %}
           {% endif %}
           {% if request.user.is_authenticated and request.user.username != account.username %}

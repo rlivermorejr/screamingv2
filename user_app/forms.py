@@ -32,7 +32,7 @@ class EditProfile(forms.Form):
 
 class ChangeProfileImage(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(EditProfile, self).__init__(*args, **kwargs)
+        super(ChangeProfileImage, self).__init__(*args, **kwargs)
         self.fields['profile_image'].default = self.instance.profile_image
 
     class Meta:

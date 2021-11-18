@@ -167,18 +167,19 @@ def mark_read(request, noti_id: int):
     """
     query = request.GET.get('data')
     # try:
-    obj = Notification.objects.get(id=noti_id)
-    # obj = Notification.objects.filter(
-    #     user_to_notify=request.user.id)
+    # obj = Notification.objects.get(id=noti_id)
+    obj = Notification.objects.filter(
+        user_to_notify=request.user.id)
     # each.read = True
     # each.save()
     # return HttpResponseRedirect(request.META['HTTP_REFERER'])
     if query == 'read':
         for each in obj:
             print(each)
-            # each.read = True
-            # each.save()
-            # return HttpResponseRedirect(request.META['HTTP_REFERER'])
+            each.read = True
+            each.save()
+            messages.info(request, obj)
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
     # except Notification.DoesNotExist:
     #     messages.info(request, "Error deleting notification!")
     #     return render(request, 'notifications.html')
