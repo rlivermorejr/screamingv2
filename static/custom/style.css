@@ -1,58 +1,6 @@
-body {
-    background-color: #eee;
-    font-size: 14px;
-}
 
-.header {
-    background-color: rgb(241, 241, 255)
-}
-
-.font-title {
-    font-size: 18px;
-}
-
-.font-regular {
-    font-size: 14px;
-}
-
-.font-small {
-    font-size: 11px;
-}
-
-.posted {
-    font-size: 15px;
-}
-
-.bdge {
-    height: 21px;
-    background-color: orange;
-    color: #fff;
-    font-size: 11px;
-    padding: 8px;
-    border-radius: 4px;
-    line-height: 3px
-}
-
-.comments {
-    text-decoration: underline;
-    text-underline-position: under;
-    cursor: pointer;
-    font-size:12px;
-}
-
-.dot {
-    height: 7px;
-    width: 7px;
-    margin-top: 3px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block
-}
-
-.hit-voting:hover {
-    color: blue
-}
-
-.hit-voting {
-    cursor: pointer
+.photo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

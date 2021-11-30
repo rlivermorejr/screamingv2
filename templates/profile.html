@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block headtag %}
+<link rel="stylesheet" type="text/css" href="{% static 'custom/style.css' %}">
 <!-- CSS/SCRIPT HERE -->
 {% endblock headtag %}
 
@@ -12,12 +13,11 @@
       <div class="col-12 bg-white py-2">
         <div class="d-flex flex-column align-items-center">
           <a href="/profile/{{ account.id }}/editproimage">
-            <img class="photo" src={{ account.profile_image.url }} alt="" height="80" width="100">
+            <img class="mx-auto d-block" src={{ account.profile_image.url }} alt="" height="40%" width="40%">
           </a>
           <p class="fw-bold h4 mt-2 text-capitalize">{{ account.username }}</p>
-          <p class="text-muted">{{ account.header }}</p>
-          <p class="text-muted">{{ account.bio }}</p>
-          <p class="text-muted">{{ account.followers.count }} | {{ account.following.count }}</p>
+          <p class="text-muted">BIO:<br>{{ account.bio }}</p>
+          <p class="text-muted">{{ account.followers.count }} flrs | {{ account.following.count }} flng</p>
           {% if request.user.is_authenticated %}
           {% if request.user.id is account.id %}
           <p class="text-muted"><a href="/profile/{{ account.id }}/edit">Edit Profile</a></p>
@@ -25,7 +25,7 @@
           {% endif %}
           {% endif %}
           {% if request.user.is_authenticated and request.user.username != account.username %}
-          <div class="d-flex ">
+          <div class="">
             {% if request.user not in account.followers.all %}
             <a href='/profile/{{ account.id }}/follow/'>
               <div class="btn btn-primary follow me-2">
@@ -67,14 +67,12 @@
     <div class="d-flex flex-column">
       <div class="col-12 bg-white px-3 mb-3 pb-3">
         <div class="d-flex align-items-center justify-content-between border-bottom">
-          <p class="py-2">Full Name</p>
-          <!-- Update to actual name -->
-          <!-- Update to Account model required -->
+          <p class="py-2">Name</p>
           <p class="py-2 text-muted">{{ account.username }}</p>
         </div>
         <div class="d-flex align-items-center justify-content-between border-bottom">
-          <p class="py-2">Phone</p>
-          <p class="py-2 text-muted">(239) 816-9029</p>
+          <p class="py-2">Header msg</p>
+          <p class="py-2 text-muted">{{ account.header }}</p>
         </div>
         <div class="d-flex align-items-center justify-content-between border-bottom">
           <p class="py-2">Country</p>
