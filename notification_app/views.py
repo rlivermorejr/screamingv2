@@ -6,6 +6,9 @@ from auth_app.models import Account
 from post_app.models import ScreamModel, CommentModel
 from notification_app.models import Notification
 
+# Add a check for repeat notifications
+# Will have to go in mark_read function
+
 
 @login_required
 def show_notify(request, user_id: int):
