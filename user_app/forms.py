@@ -4,6 +4,11 @@ from django_countries.fields import CountryField
 
 
 class EditProfile(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(EditProfile, self).__init__(*args, **kwargs)
+        self.fields['country'].initial = 'US'
+        # self.fields['city'].widget.attrs['placeholder'] = 'City'
+
     bio = forms.CharField(widget=forms.Textarea(
         attrs={'style': 'width:50%;height:100px;'}), label="")
     header = forms.CharField(max_length=80)
