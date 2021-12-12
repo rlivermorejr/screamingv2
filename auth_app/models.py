@@ -12,14 +12,15 @@ pimg = '../static/images/profile_img.png'
 
 
 class Account(AbstractUser):
-    bio = models.TextField(max_length=250, blank=True)
+    bio = models.TextField(max_length=250, default="I am blank!")
     profile_image = models.ImageField(
         default=pimg, upload_to='profile_images/',
         blank=True)
     date_of_birth = models.DateField(
         auto_now=False, default='1990-01-01')
-    header = models.CharField(max_length=80, editable=True)
-    country = CountryField(blank_label='(select country)')
+    header = models.CharField(max_length=80, editable=True, default="Noob")
+    location = models.CharField(
+        max_length=40, default="Armpit, CA")
     followers = models.ManyToManyField('self', symmetrical=False,
                                        related_name='auth_followers',
                                        blank=True)

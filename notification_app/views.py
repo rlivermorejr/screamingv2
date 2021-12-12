@@ -7,7 +7,10 @@ from post_app.models import ScreamModel, CommentModel
 from notification_app.models import Notification
 
 # Add a check for repeat notifications
-# Will have to go in mark_read function
+# Will have to go in each function
+# If notification exists & read = True, then create a new notification
+# If notification exists & read = False, then do nothing
+# If notification does not exist, then create a new notification
 
 
 @login_required

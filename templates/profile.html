@@ -16,8 +16,8 @@
             <img class="mx-auto d-block" src={{ account.profile_image.url }} alt="" height="40%" width="40%">
           </a>
           <p class="fw-bold h4 mt-2 text-capitalize">{{ account.username }}</p>
-          <p class="text-muted">BIO:<br>{{ account.bio }}</p>
-          <p class="text-muted">{{ account.followers.count }} flrs | {{ account.following.count }} flng</p>
+          <p class="text-muted text-center">BIO:<br>{{ account.bio }}</p>
+          <p class="text-muted text-center">I like {{ account.followers.count }} people <br /> {{ account.following.count }} people like me</p>
           {% if request.user.is_authenticated %}
           {% if request.user.id is account.id %}
           <p class="text-muted"><a href="/profile/{{ account.id }}/edit">Edit Profile</a></p>
@@ -68,15 +68,17 @@
       <div class="shadow col-12 bg-white px-3 mb-3 pb-3">
         <div class="d-flex align-items-center justify-content-between border-bottom">
           <p class="py-2">Name</p>
-          <p class="py-2 text-muted">{{ account.username }}</p>
+          <p class="py-2 text-muted text-capitalize">{{ account.username }}</p>
         </div>
         <div class="d-flex align-items-center justify-content-between border-bottom">
           <p class="py-2">Header msg</p>
           <p class="py-2 text-muted">{{ account.header }}</p>
         </div>
         <div class="d-flex align-items-center justify-content-between border-bottom">
-          <p class="py-2">Country</p>
-          <p class="py-2 text-muted">{{ account.country.name }}</p>
+          <p class="py-2">Nationality</p>
+          <p class="py-2 text-muted">
+            {{ account.location }}
+          </p>
         </div>
         <div class="d-flex align-items-center justify-content-between border-bottom">
           <p class="py-2">Birthday</p>

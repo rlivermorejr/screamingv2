@@ -138,7 +138,7 @@ class EditUserProfile(View):
             'bio': cur_user.bio,
             'header': cur_user.header,
             'date_of_birth': cur_user.date_of_birth,
-            'country': cur_user.country,
+            'location': cur_user.location,
         })
         return render(request, 'forms/edit_profile.html', {'form': form})
 
@@ -151,7 +151,7 @@ class EditUserProfile(View):
             cur_user.bio = data['bio']
             cur_user.header = data['header']
             cur_user.date_of_birth = data['date_of_birth']
-            cur_user.country = data['country']
+            cur_user.location = data['location']
             cur_user.save()
             return render(request, 'profile.html', {'account': cur_user})
         else:

@@ -4,11 +4,6 @@ from django_countries.fields import CountryField
 
 
 class EditProfile(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super(EditProfile, self).__init__(*args, **kwargs)
-        self.fields['country'].initial = 'US'
-        # self.fields['city'].widget.attrs['placeholder'] = 'City'
-
     bio = forms.CharField(widget=forms.Textarea(
         attrs={'style': 'width:50%;height:100px;'}), label="")
     header = forms.CharField(max_length=80)
@@ -17,8 +12,9 @@ class EditProfile(forms.Form):
             format='%m/%d/%Y', attrs={'class': 'datepicker'}),
         input_formats=('%m/%d/%Y', )
     )
-    country = CountryField().formfield()
+    location = forms.CharField(max_length=40)
 
+###############################################################################
     # class PersonForm(forms.ModelForm):
 
     # class Meta:
@@ -33,6 +29,7 @@ class EditProfile(forms.Form):
 #         fields = [
 #             'username'
 #         ]
+###############################################################################
 
 
 class ChangeProfileImage(forms.ModelForm):
