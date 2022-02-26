@@ -6,7 +6,7 @@ from django_countries.fields import CountryField
 class EditProfile(forms.Form):
     bio = forms.CharField(widget=forms.Textarea(
         attrs={'style': 'width:50%;height:100px;'}), label="")
-    header = forms.CharField(max_length=80)
+    header = forms.CharField(max_length=15)
     date_of_birth = forms.DateField(
         widget=forms.DateInput(
             format='%m/%d/%Y', attrs={'class': 'datepicker'}),

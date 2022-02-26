@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import django_on_heroku
 from pathlib import Path
 import os
 import environ
@@ -34,6 +35,8 @@ SECRET_KEY = 'django-insecure-+8p-sx69dq7ih+ws*jk-0v)&^=laydt*9%3bro76+)@*yh=_g&
 DEBUG = True
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1:8000',
+                 'youre-screaming.herokuapp.com']
 
 
 # Application definition
@@ -62,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'conf.urls'
@@ -97,16 +102,16 @@ DATABASES = {
 ############################
 # UNCOMMENT WHEN IMPLEMENTING MONGODB
 ############################
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'scream-db',
-#         'ENFORCE_SCHEMA': False,
-#         'CLIENT': {
-#                 'host': env('HOST')
-#         }
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'scream-db',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+                'host': env('HOST')
+        }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -159,6 +164,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 MEDIA_ROOT = BASE_DIR / 'media'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

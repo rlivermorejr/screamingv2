@@ -18,7 +18,7 @@ class Account(AbstractUser):
         blank=True)
     date_of_birth = models.DateField(
         auto_now=False, default='1990-01-01')
-    header = models.CharField(max_length=80, editable=True, default="Noob")
+    header = models.CharField(max_length=15, editable=True, default="Noob")
     location = models.CharField(
         max_length=40, default="Armpit, CA")
     followers = models.ManyToManyField('self', symmetrical=False,
