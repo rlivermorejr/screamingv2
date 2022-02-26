@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
 
+from django.http import Http404
+
 from django.contrib.auth import login, authenticate, logout
 from auth_app.forms import CreateUserForm, LoginForm
 from auth_app.models import Account
@@ -15,13 +17,17 @@ def index_page(request):
     This is mainly just so the number of
     notifications shows up on the homepage
     """
-    if not request.user.is_authenticated:
-        return render(request, 'index.html')
-    else:
-        cur_user = Account.objects.get(id=request.user.id)
-        notif = Notification.objects.filter(
-            user_to_notify=cur_user, read=False)
-        return render(request, 'index.html', {'notif': notif})
+    try:
+        if not request.user.is_authenticated:
+            return render(request, 'index.html')
+        else:
+            cur_user = Account.objects.get(id=request.user.id)
+            notif = Notification.objects.filter(
+                user_to_notify=cur_user, read=False)
+            # return render(request, 'index.html', {'notif': notif})
+    except:
+        raise Http404("Page not found")
+    return render(request, 'index.html', {'notif': notif})
 
 
 class CreateUser(View):

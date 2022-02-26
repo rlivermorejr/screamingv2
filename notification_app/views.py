@@ -19,13 +19,16 @@ def show_notify(request, user_id: int):
     Gets all unread notifications from Notification model
     and filters only the ones linked to logged in user
     """
-    my_user = Account.objects.get(id=user_id)
-    notif_list = Notification.objects.filter(
-        user_to_notify=my_user, read=False)[::-1]
-    notif = Notification.objects.filter(
-        user_to_notify=my_user, read=False)
-    return render(request, 'notifications.html', {'notif_list': notif_list,
-                                                  'notif': notif})
+    try:
+        my_user = Account.objects.get(id=user_id)
+        notif_list = Notification.objects.filter(
+            user_to_notify=my_user, read=False)[::-1]
+        notif = Notification.objects.filter(
+            user_to_notify=my_user, read=False)
+        return render(request, 'notifications.html', {'notif_list': notif_list,
+                                                      'notif': notif})
+    except:
+        return render(request, "notifications.html")
 
 
 def NotifyMention(request, user_id: int, post_id: int):

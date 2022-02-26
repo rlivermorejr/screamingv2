@@ -28,14 +28,14 @@ LOGOUT_URL = '/logout/'
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+8p-sx69dq7ih+ws*jk-0v)&^=laydt*9%3bro76+)@*yh=_g&'
-# SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = 'django-insecure-+8p-sx69dq7ih+ws*jk-0v)&^=laydt*9%3bro76+)@*yh=_g&'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['localhost', '127.0.0.1:8000',
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
                  'youre-screaming.herokuapp.com']
 
 
@@ -158,7 +158,7 @@ AUTHENTICATION_BACKENDS = (
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
