@@ -40,8 +40,8 @@
     </section>
   </nav>
 
+  
   <!-- User Panel -->
-
   {% if request.user.is_authenticated %}
   <div class="container">
     <div class="panel-group">
@@ -49,7 +49,7 @@
         <div class="panel-heading">
           <h4 class="panel-title text-center text-capitalize">
             
-            {% if notif.count %}
+            {% if notif.get_count > 0 %}
             <a data-toggle="collapse" href="#collapse1">{{ request.user.username }} <i class="fa fa-bell"
                 aria-hidden="true"></i></a>
             {% else %}
@@ -61,7 +61,11 @@
           <div class="panel-body">
             <ul>
               <li><a href='/profile/{{ request.user.id }}'>Profile</a></li>
-              <li><a href='/notifications/{{ request.user.id }}'>Notifications ({{ notif.count }})</a></li>
+              {% if notif.get_count > 0 %}
+            <li><a href='/notifications/{{ request.user.id }}'>Notifications ({{ notif.get_count }})</a></li>
+            {% else %}
+            <li><a href='/notifications/{{ request.user.id }}'>Notifications (0)</a></li>
+            {% endif %}
             </ul>
           </div>
           <div class="panel-footer"><a href='/logout/' class="navbar-link">Logout</a></div>
@@ -70,7 +74,6 @@
     </div>
   </div>
   {% endif %}
-
 
   <!-- prints error messages -->
   {% if messages %}

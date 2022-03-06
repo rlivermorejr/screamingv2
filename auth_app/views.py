@@ -17,17 +17,14 @@ def index_page(request):
     This is mainly just so the number of
     notifications shows up on the homepage
     """
-    try:
-        if not request.user.is_authenticated:
-            return render(request, 'index.html')
-        else:
-            cur_user = Account.objects.get(id=request.user.id)
-            notif = Notification.objects.filter(
-                user_to_notify=cur_user, read=False)
-            # return render(request, 'index.html', {'notif': notif})
-    except:
-        raise Http404("Page not found")
-    return render(request, 'index.html', {'notif': notif})
+    if not request.user.is_authenticated:
+        return render(request, 'index.html')
+    else:
+        cur_user = Account.objects.get(id=request.user.id)
+        notif = Notification.objects.filter(
+            user_to_notify=cur_user, read=False)
+        # return render(request, 'index.html', {'notif': notif})
+        return render(request, 'index.html', {'notif': notif})
 
 
 class CreateUser(View):

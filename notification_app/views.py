@@ -27,7 +27,7 @@ def show_notify(request, user_id: int):
             user_to_notify=my_user, read=False)
         return render(request, 'notifications.html', {'notif_list': notif_list,
                                                       'notif': notif})
-    except:
+    except Notification.DoesNotExist:
         return render(request, "notifications.html")
 
 
