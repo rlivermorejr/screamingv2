@@ -14,6 +14,7 @@ import django_on_heroku
 from pathlib import Path
 import os
 import environ
+from pymongo import MongoClient
 
 env = environ.Env()
 environ.Env.read_env()
@@ -94,9 +95,7 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-##################################
-# DJANGO LOCAL DATABASE SETTINGS #
-##################################
+"""Local database settings"""
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -104,9 +103,7 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 #     }
 # }
 
-####################
-# MONGODB DATABASE #
-####################
+"""Djongo connection settings"""
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
@@ -117,6 +114,9 @@ DATABASES = {
         }
     }
 }
+
+"""Pymongo connection settings"""
+# MongoClient('mongodb://localhost:27017/')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -13,6 +13,8 @@ class CustomUserAdmin(UserAdmin):
                     'bio',
                     'profile_image',
                     'date_of_birth',
+                    'header',
+                    'location',
                     'followers',
                     'following',
                     'likes',
