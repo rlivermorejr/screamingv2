@@ -96,24 +96,24 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 
 
 """Local database settings"""
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-"""Djongo connection settings"""
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'scream-db',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-                'host': env('HOST')
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+"""Djongo connection settings"""
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'scream-db',
+#         'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#                 'host': env('HOST')
+#         }
+#     }
+# }
 
 """Pymongo connection settings"""
 # MongoClient('mongodb://localhost:27017/')
