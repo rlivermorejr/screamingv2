@@ -18,17 +18,16 @@ def get_user_profile(request, user_id: int):
     for existing user in case you manually
     type the address in the url
     """
+    if not request.user.is_authenticated:
+        return render(request, 'index.html')
     try:
         account = Account.objects.get(id=user_id)
-        try:
-            cur_user = Account.objects.get(id=request.user.id)
-            notif = Notification.objects.filter(
-                user_to_notify=cur_user, read=False)
-            posts = ScreamModel.objects.filter(posted_by=cur_user)[3::-1]
-            comment_form = CommentForm()
-        except Account.DoesNotExist:
-            return render(request, 'profile.html', {'account': account})
-    except Account.DoesNotExist:
+        cur_user = Account.objects.get(id=request.user.id)
+        notif = Notification.objects.filter(
+            user_to_notify=cur_user, read=False)
+        posts = ScreamModel.objects.filter(posted_by=cur_user)[3::-1]
+        comment_form = CommentForm()
+    except account.DoesNotExist:
         messages.info(request, "This account does not exist!")
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
     return render(request, 'profile.html', {'account': account,

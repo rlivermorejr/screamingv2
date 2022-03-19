@@ -103,20 +103,6 @@ DATABASES = {
     }
 }
 
-"""Djongo connection settings"""
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'scream-db',
-#         'ENFORCE_SCHEMA': False,
-#         'CLIENT': {
-#                 'host': env('HOST')
-#         }
-#     }
-# }
-
-"""Pymongo connection settings"""
-# MongoClient('mongodb://localhost:27017/')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
