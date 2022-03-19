@@ -18,8 +18,6 @@ def get_user_profile(request, user_id: int):
     for existing user in case you manually
     type the address in the url
     """
-    if not request.user.is_authenticated:
-        return render(request, 'index.html')
     try:
         account = Account.objects.get(id=user_id)
         cur_user = Account.objects.get(id=request.user.id)

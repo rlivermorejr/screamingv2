@@ -6,7 +6,7 @@ authors = ["rlivermorejr <rlivermorejr@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Django = "^3.2.6"
+Django = "4.0.3"
 django-environ = "^0.4.5"
 Pillow = "^8.3.1"
 sqlparse = "0.2.4"
@@ -17,6 +17,8 @@ heroku = "^0.1.4"
 whitenoise = "^6.0.0"
 django-on-heroku = "^1.1.2"
 gunicorn = "^20.1.0"
+djongo = "^1.3.6"
+pymongo = {version = "3.12.3", extras = ["srv"]}
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.7"

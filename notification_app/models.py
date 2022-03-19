@@ -13,11 +13,11 @@ class Notification(models.Model):
     read = models.BooleanField(default=False)
     rec_date = models.DateTimeField(auto_now=True, editable=False)
 
-    def get_count(self):
-        """
-        Gets the number of unread notifications
-        """
-        try:
-            return Notification.objects.filter(read=False).count()
-        except Notification.DoesNotExist:
-            return 0
+    # def get_count(self):
+    #     """
+    #     Gets the number of unread notifications
+    #     """
+    #     try:
+    #         return Notification.objects.filter(read=False).count()
+    #     except Notification.DoesNotExist:
+    #         return 0

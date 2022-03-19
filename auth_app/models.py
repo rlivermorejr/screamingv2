@@ -1,14 +1,10 @@
 from django.db import models
 from django.conf import settings
-from djongo.storage import GridFSStorage
 from django_countries.fields import CountryField
-
 
 from django.contrib.auth.models import AbstractUser
 
 pimg = '../static/images/profile_img.png'
-# grid_fs_storage = GridFSStorage(collection='profile_images', base_url=''.join([
-#                                 settings.BASE_URL, 'profile_images/']))
 
 
 class Account(AbstractUser):

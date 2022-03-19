@@ -14,7 +14,6 @@ import django_on_heroku
 from pathlib import Path
 import os
 import environ
-from pymongo import MongoClient
 
 env = environ.Env()
 environ.Env.read_env()
@@ -103,6 +102,18 @@ DATABASES = {
     }
 }
 
+"""Djongo connection settings"""
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'scream-db',
+#         'ENFORCE_SCHEMA': True,
+#         'CLIENT': {
+#                 'host': env('HOST')
+#         }
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -149,13 +160,13 @@ AUTHENTICATION_BACKENDS = (
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets/')
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
 
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static/')
 ]
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

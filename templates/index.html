@@ -32,8 +32,11 @@
   <br>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <section class='container-fluid'>
+      {% if request.user.is_authenticated %}
       <p class="navbar-text"><a href='/home/' class="navbar-link">Home</a></p>
+      {% endif %}
       {% if not request.user.is_authenticated %}
+      <p class="navbar-text"><a href='/' class="navbar-link">Home</a></p>
       <p class="navbar-text"><a href="/login/" class="navbar-link">Login</a></p>
       {% endif %}
       <p class="navbar-text"><a href="/create_user/" class="navbar-link">Create User</a></p>
@@ -61,8 +64,8 @@
           <div class="panel-body">
             <ul>
               <li><a href='/profile/{{ request.user.id }}'>Profile</a></li>
-              {% if notif.get_count > 0 %}
-            <li><a href='/notifications/{{ request.user.id }}'>Notifications ({{ notif.get_count }})</a></li>
+              {% if notif.count > 0 %}
+            <li><a href='/notifications/{{ request.user.id }}'>Notifications ({{ notif.count }})</a></li>
             {% else %}
             <li><a href='/notifications/{{ request.user.id }}'>Notifications (0)</a></li>
             {% endif %}
