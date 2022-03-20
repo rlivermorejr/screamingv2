@@ -57,6 +57,8 @@ urlpatterns = [
     path('comment/<int:post_id>/', CommentView.as_view(), name='post_comment')
 ]
 
+urlpatterns += static(settings.STATIC_URL,
+                      document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL,
                       document_root=settings.MEDIA_ROOT)
 handler404 = 'err_handler.views.handler403'

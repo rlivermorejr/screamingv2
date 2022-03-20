@@ -10,8 +10,7 @@ pimg = '../static/images/profile_img.png'
 class Account(AbstractUser):
     bio = models.TextField(max_length=250, default="I am blank!")
     profile_image = models.ImageField(
-        default=pimg, upload_to='profile_images/',
-        blank=True)
+        default=pimg, upload_to='assets/', blank=True)
     date_of_birth = models.DateField(
         auto_now=False, default='1990-01-01')
     header = models.CharField(max_length=15, editable=True, default="Noob")
