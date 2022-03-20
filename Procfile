@@ -1,1 +1,1 @@
-web: gunicorn screamingv2.wsgi:application
+web: gunicorn screamingv2.wsgi
