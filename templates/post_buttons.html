@@ -1,0 +1,43 @@
+
+{% load static %}
+{% block postbuttons %}
+{% if request.user.is_authenticated %}
+        <div class="d-flex flex-column flex-grow-0 align-items-center votings ml-4 mr-1 font-small">
+          {% if request.user in post.likes.all %}
+          <a class="fa fa-thumbs-up fa-2x hit-voting" href='/like/{{ post.id }}'></a>
+          <span>
+            {{ post.likes.count }}
+          </span>
+          {% else %}
+          <a class="fa fa-thumbs-o-up fa-2x hit-voting mr-1" href='/like/{{ post.id }}'></a>
+          <span>
+            {{ post.likes.count }}
+          </span>
+          {% endif %}
+          {% if request.user in post.dislikes.all %}
+          <a class="fa fa-thumbs-down fa-2x hit-voting" href='/dislike/{{ post.id }}'></a>
+          <span>
+            {{ post.dislikes.count }}
+          </span>
+          {% else %}
+          <a class="fa fa-thumbs-o-down fa-2x hit-voting mr-1" href='/dislike/{{ post.id }}'></a>
+          <span>
+            {{ post.dislikes.count }}
+          </span>
+          {% endif %}
+        </div>
+        {% else %}
+        <!--If user is not signed in, this will display different like/dislike buttons-->
+        <div class="d-flex flex-column flex-grow-0 align-items-center votings ml-4 mr-1 font-small">
+          <a class="fa fa-thumbs-up fa-2x hit-voting"></a>
+          <span>
+            {{ post.likes.count }}
+          </span>
+          <a class="fa fa-thumbs-down fa-2x hit-voting mr-1"></a>
+          <span>
+            {{ post.dislikes.count }}
+          </span>
+
+        </div>
+{% endif %}
+{% endblock postbuttons %}

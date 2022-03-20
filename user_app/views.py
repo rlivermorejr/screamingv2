@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views import View
+from django.urls import reverse
 
 from django.http import HttpResponseRedirect
 from auth_app.models import Account
@@ -18,6 +19,8 @@ def get_user_profile(request, user_id: int):
     for existing user in case you manually
     type the address in the url
     """
+    if (not request.user.is_authenticated):
+        return HttpResponseRedirect(reverse('login_page'))
     try:
         account = Account.objects.get(id=user_id)
         cur_user = Account.objects.get(id=request.user.id)

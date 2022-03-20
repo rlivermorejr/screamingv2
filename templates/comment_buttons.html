@@ -1,0 +1,38 @@
+{% load static %}
+{% block commbuttons %}
+{% if request.user.is_authenticated %}
+<div class="reply-section font-small">
+  <div class="d-flex flex-row align-items-center voting-icons">
+    <a class="fa fa-sort-up fa-2x mt-3 hit-voting" href="/like/{{ post.id }}/comment/{{ comments.id }}/"></a>
+    <span class="ml-1 mr-2">
+      {{ comments.likes.count }}
+    </span>
+    <a class="fa fa-sort-down fa-2x mb-3 hit-voting" href="/dislike/{{ post.id }}/comment/{{ comments.id }}/"></a>
+    <span class="ml-1 mr-2">
+      {{ comments.dislikes.count }}
+    </span>
+    <span class=""></span>
+    {% if comments.comment_by == request.user %}
+    <a href="/delete_comment/{{ comments.id }}/">
+      <button>delete</button></a>
+    {% endif %}
+    </span>
+  </div>
+  <!-- <span class="dot ml-2"></span> -->
+  <!-- <h6 class="ml-2 mt-1">Reply</h6> -->
+</div>
+{% else %}
+<div class="reply-section font-small">
+  <div class="d-flex flex-row align-items-center voting-icons">
+    <a class="fa fa-sort-up fa-2x mt-3 hit-voting"></a>
+    <span class="ml-1 mr-2">
+      {{ comments.likes.count }}
+    </span>
+    <a class="fa fa-sort-down fa-2x mb-3 hit-voting"></a>
+    <span class="ml-1 mr-2">
+      {{ comments.dislikes.count }}
+    </span>
+    <span class=""></span>
+  </div>
+  {% endif %}
+  {% endblock commbuttons %}

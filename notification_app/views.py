@@ -174,20 +174,23 @@ def mark_read(request, noti_id: int):
     or will mark them all as read depending on
     the button pressed
     """
-    query = request.GET.get('data')
     try:
-        allNotif = Notification.objects.filter(
-            user_to_notify=request.user.id)
+        query = request.GET.get('data')
         if query == 'read':
+            allNotif = Notification.objects.filter(
+                user_to_notify=request.user.id)
             for each in allNotif:
                 each.read = True
                 each.save()
-                return HttpResponseRedirect(request.META['HTTP_REFERER'])
         else:
             singleNotif = Notification.objects.get(id=noti_id)
             singleNotif.read = True
             singleNotif.save()
             return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        # this return is for the for loop for reading all the notifications
+        # if you put the refresh inside the for loop it will refresh
+        # before the loop completes
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
     except Notification.DoesNotExist:
         messages.info(request, "Error deleting notification!")
         return render(request, 'notifications.html')

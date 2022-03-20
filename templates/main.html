@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'custom/style.css' %}">
 {% endblock headtag %}
 
+<!--Form to Post-->
 {% block content %}
 <div class='container mt-4 text-center'>
   <!-- the post form -->
@@ -23,6 +24,7 @@
 </div>
 </br>
 
+<!--Regular Post Section-->
 {% for post in tweets %}
 <div class="container mt-5 mb-5">
   <div class="d-flex justify-content-center row">
@@ -32,37 +34,12 @@
           <img class="rounded-circle" src={{ post.posted_by.profile_image.url }} width="62" height="60">
           <p class="text-center">{{ post.posted_by.header }}</>
         </div>
-        <div class="d-flex flex-column flex-grow-0 align-items-center votings ml-4 mr-1 font-small">
-          {% if request.user in post.likes.all %}
-          <a class="fa fa-thumbs-up fa-2x hit-voting" href='/like/{{ post.id }}'></a>
-          <span>
-            {{ post.likes.count }}
-          </span>
-          {% else %}
-          <a class="fa fa-thumbs-o-up fa-2x hit-voting mr-1" href='/like/{{ post.id }}'></a>
-          <span>
-            {{ post.likes.count }}
-          </span>
-          {% endif %}
-          {% if request.user in post.dislikes.all %}
-          <a class="fa fa-thumbs-down fa-2x hit-voting" href='/dislike/{{ post.id }}'></a>
-          <span>
-            {{ post.dislikes.count }}
-          </span>
-          {% else %}
-          <a class="fa fa-thumbs-o-down fa-2x hit-voting mr-1" href='/dislike/{{ post.id }}'></a>
-          <span>
-            {{ post.dislikes.count }}
-          </span>
-          {% endif %}
-        </div>
 
-        <!-- Create a like to dislike ratio bar -->
-        <!-- <small>Web Design</small>
-        <div class="progress mb-3" style="height: 5px">
-          <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="72"
-            aria-valuemin="0" aria-valuemax="100"></div> -->
-
+        <!--Like Buttons-->
+        {% block postbuttons %}
+        {% include 'post_buttons.html' %}
+        {% endblock postbuttons %}
+  
         <div class="d-flex flex-column ml-5">
           <div class="d-flex flex-row post-title font-title">
             <span>
@@ -87,11 +64,14 @@
           </div>
         </div>
       </div>
+
+      <!--Comment Section-->
       <div class="shadow comment-bottom bg-white p-2 px-4">
         {% if post.comments.count > 2 %}
         <details>
           <summary>Comments</summary>
           {% endif %}
+          {% if request.user.is_authenticated %}
           <div class="d-flex flex-row add-comment-section mt-4 mb-4">
             <a href="/profile/{{ comments.comment_by.id }}/"></a>
             <img class="rounded-circle mr-2 mt-1" src="{{ request.user.profile_image.url }}" width="40" height="40">
@@ -102,6 +82,7 @@
               <input class="btn btn-primary mb-2" type='submit' value='Submit'>
             </form>
           </div>
+          {% endif %}
           {% for comments in post.comments.all %}
           <div class="commented-section">
             <div class="d-flex flex-row align-items-center">
@@ -117,28 +98,12 @@
                 {{ comments.elapsed }}
               </div>
             </div>
-            <div class="reply-section font-small">
-              <div class="d-flex flex-row align-items-center voting-icons">
-                <a class="fa fa-sort-up fa-2x mt-3 hit-voting"
-                  href="/like/{{ post.id }}/comment/{{ comments.id }}/"></a>
-                <span class="ml-1 mr-2">
-                  {{ comments.likes.count }}
-                </span>
-                <a class="fa fa-sort-down fa-2x mb-3 hit-voting"
-                  href="/dislike/{{ post.id }}/comment/{{ comments.id }}/"></a>
-                <span class="ml-1 mr-2">
-                  {{ comments.dislikes.count }}
-                </span>
-                <span class=""></span>
-                {% if comments.comment_by == request.user %}
-                <a href="/delete_comment/{{ comments.id }}/">
-                  <button>delete</button></a>
-                {% endif %}
-                </span>
-              </div>
-              <!-- <span class="dot ml-2"></span> -->
-              <!-- <h6 class="ml-2 mt-1">Reply</h6> -->
-            </div>
+
+            <!---Like Buttons for comments-->
+            {% block commentbuttons %}
+            {% include 'comment_buttons.html' %}
+            {% endblock commentbuttons %}
+
           </div>
           {% endfor %}
         </details>
