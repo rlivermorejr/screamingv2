@@ -21,7 +21,7 @@
           {% if request.user.is_authenticated %}
           {% if request.user.id is account.id %}
           <p class="text-muted"><a href="/profile/{{ account.id }}/edit">Edit Profile</a></p>
-          <p class="text-muted"><a href="/profile/{{ account.id }}/editproimage">Change Profile Image</a></p>
+          <p class="text-muted"><a href="/profile/{{ account.id }}/editproimage">Change Profile Image</a>(Profile images do not work atm)</p>
           {% endif %}
           {% endif %}
           {% if request.user.is_authenticated and request.user.username != account.username %}
@@ -80,6 +80,7 @@
             Recent Posts:
           </i>
         </h6>
+        <h6>Working on.....</h6>
         {% for post in posts %}
         <div class="d-flex justify-content-center mb-3">
           <div class='shadow p-4 mb-4 bg-white w-75'>
