@@ -28,11 +28,10 @@ LOGOUT_URL = '/logout/'
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-+8p-sx69dq7ih+ws*jk-0v)&^=laydt*9%3bro76+)@*yh=_g&'
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',
@@ -175,3 +174,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'auth_app.Account'
+
+# Heroku settings
+# Activate Django-Heroku.
+django_on_heroku.settings(locals())
