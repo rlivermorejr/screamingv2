@@ -40,6 +40,7 @@
       <p class="navbar-text"><a href="/login/" class="navbar-link">Login</a></p>
       {% endif %}
       <p class="navbar-text"><a href="/create_user/" class="navbar-link">Create User</a></p>
+      <p class="navbar-text"><a href="/devmessage/" class="navbar-link">READ THIS FIRST!</a></p>
     </section>
   </nav>
 
@@ -95,42 +96,12 @@
   {% endfor %}
   {% endif %}
 
-  <section class="dev-message">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="message-box">
-            <div>
-              <h1 style="text-decoration:underline">Please read before continuing:</h1>
-              <br>
-              <p>
-                This website is still in development.
-                <br>
-                There are some bugs and issues that still need to be fixed.
-                <br>
-                <br>
-                If you are just a visitor, I would appreciate it if you would not post anything that is
-                offensive/vulgar.
-                <br>
-                Thank you for understanding.
-                <br>
-                <br>
-                I also appreciate any feedback you may have.
-                <br>
-                If you have any questions/feedback, please contact me at:
-                russell.live@protonmail.com
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <section class="block">
-      <!-- block content will contain every other page -->
-      {% block content %}
-      {% endblock content %}
-    </section>
+  <section class="block">
+    <!-- block content will contain every other page -->
+    {% block content %}
+    {% endblock content %}
+  </section>
 </body>
 
 </html>

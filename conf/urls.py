@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from auth_app.views import CreateUser, index_page, login_user, logout_user
+from auth_app.views import CreateUser, dev_message, index_page, login_user, logout_user, dev_message
 from post_app.views import (delete_comment, post_tweet, like_view, dislike_view,
                             view_post, CommentView, like_comment,
                             dislike_comment)
@@ -54,7 +54,8 @@ urlpatterns = [
     path('profile/<int:user_id>/followers/', followers),
     path('profile/<int:user_id>/following/', following),
     path('notifications/<int:user_id>/', show_notify),
-    path('comment/<int:post_id>/', CommentView.as_view(), name='post_comment')
+    path('comment/<int:post_id>/', CommentView.as_view(), name='post_comment'),
+    path('devmessage/', dev_message)
 ]
 
 urlpatterns += static(settings.STATIC_URL,

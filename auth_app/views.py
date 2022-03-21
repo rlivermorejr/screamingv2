@@ -82,3 +82,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('main'))
+
+
+def dev_message(request):
+    return render(request, 'dev_message.html')
