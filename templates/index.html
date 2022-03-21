@@ -17,7 +17,7 @@
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   {% block headtag %}
   {% endblock %}
-    <link rel="stylesheet" type="text/css" href="{% static 'custom/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'custom/style.css' %}">
 
   <title>Screaming</title>
 </head>
@@ -36,14 +36,14 @@
       <p class="navbar-text"><a href='/home/' class="navbar-link">Home</a></p>
       {% endif %}
       {% if not request.user.is_authenticated %}
-      <p class="navbar-text"><a href='/' class="navbar-link">Home</a></p>
+      <p class="navbar-text"><a href='/home/' class="navbar-link">Show Posts</a></p>
       <p class="navbar-text"><a href="/login/" class="navbar-link">Login</a></p>
       {% endif %}
       <p class="navbar-text"><a href="/create_user/" class="navbar-link">Create User</a></p>
     </section>
   </nav>
 
-  
+
   <!-- User Panel -->
   {% if request.user.is_authenticated %}
   <div class="container">
@@ -51,7 +51,7 @@
       <div class="shadow panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title text-center text-capitalize">
-            
+
             {% if notif.get_count > 0 %}
             <a data-toggle="collapse" href="#collapse1">{{ request.user.username }} <i class="fa fa-bell"
                 aria-hidden="true"></i></a>
@@ -65,10 +65,10 @@
             <ul>
               <li><a href='/profile/{{ request.user.id }}'>Profile</a></li>
               {% if notif.count > 0 %}
-            <li><a href='/notifications/{{ request.user.id }}'>Notifications ({{ notif.count }})</a></li>
-            {% else %}
-            <li><a href='/notifications/{{ request.user.id }}'>Notifications (0)</a></li>
-            {% endif %}
+              <li><a href='/notifications/{{ request.user.id }}'>Notifications ({{ notif.count }})</a></li>
+              {% else %}
+              <li><a href='/notifications/{{ request.user.id }}'>Notifications (0)</a></li>
+              {% endif %}
             </ul>
           </div>
           <div class="panel-footer"><a href='/logout/' class="navbar-link">Logout</a></div>
@@ -95,11 +95,42 @@
   {% endfor %}
   {% endif %}
 
-  <section class="block">
-    <!-- block content will contain every other page -->
-    {% block content %}
-    {% endblock content %}
-  </section>
+  <section class="dev-message">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="message-box">
+            <div>
+              <h1 style="text-decoration:underline">Please read before continuing:</h1>
+              <br>
+              <p>
+                This website is still in development.
+                <br>
+                There are some bugs and issues that still need to be fixed.
+                <br>
+                <br>
+                If you are just a visitor, I would appreciate it if you would not post anything that is
+                offensive/vulgar.
+                <br>
+                Thank you for understanding.
+                <br>
+                <br>
+                I also appreciate any feedback you may have.
+                <br>
+                If you have any questions/feedback, please contact me at:
+                russell.live@protonmail.com
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="block">
+      <!-- block content will contain every other page -->
+      {% block content %}
+      {% endblock content %}
+    </section>
 </body>
 
 </html>

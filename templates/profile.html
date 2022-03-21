@@ -17,11 +17,13 @@
           </a>
           <p class="fw-bold h4 mt-2 text-capitalize">{{ account.username }}</p>
           <p class="text-muted text-center">BIO:<br>{{ account.bio }}</p>
-          <p class="text-muted text-center">I like {{ account.following.count }} people <br /> {{ account.followers.count }} people like me</p>
+          <p class="text-muted text-center">I like {{ account.following.count }} people <br /> {{
+            account.followers.count }} people like me</p>
           {% if request.user.is_authenticated %}
           {% if request.user.id is account.id %}
           <p class="text-muted"><a href="/profile/{{ account.id }}/edit">Edit Profile</a></p>
-          <p class="text-muted"><a href="/profile/{{ account.id }}/editproimage">Change Profile Image</a>(Profile images do not work atm)</p>
+          <p class="text-muted"><a href="/profile/{{ account.id }}/editproimage">Change Profile Image</a>(Profile images
+            do not work due to the heroku DB)</p>
           {% endif %}
           {% endif %}
           {% if request.user.is_authenticated and request.user.username != account.username %}

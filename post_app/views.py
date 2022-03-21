@@ -129,7 +129,7 @@ def dislike_comment(request, post_id: int, comment_id: int):
 def delete_comment(request, comment_id: int):
     comment = CommentModel.objects.get(id=comment_id)
     cur_user = Account.objects.get(id=request.user.id)
-    if comment.comment_by == cur_user.username:
+    if comment.comment_by.username == cur_user.username:
         comment.delete()
         comment.save()
     else:
